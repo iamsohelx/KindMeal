@@ -1,5 +1,34 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Nosifer, Anton_SC, Chewy  } from "next/font/google";
 import "./globals.css";
+
+const nosifer = Nosifer({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: "--font-nosrif"
+})
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'], // adjust as needed
+  display: 'swap',
+  variable: "--font-poppins"
+})
+
+const antonSC = Anton_SC({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: "--font-anton"
+})
+
+const chewy = Chewy({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: "--font-chewy"
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -7,7 +36,7 @@ const geistSans = Geist({
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  
   subsets: ["latin"],
 });
 
@@ -20,7 +49,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${nosifer.variable} ${chewy.variable} ${poppins.variable} ${antonSC.variable} antialiased`}
       >
         {children}
       </body>
