@@ -9,5 +9,5 @@ const restroSchema = new mongoose.Schema({
     verified:{type: Boolean, default: false},
     foodListing:[{type: mongoose.Schema.Types.ObjectId, ref:"Listing"}]
 })
-
-module.exports = mongoose.models.Restro || mongoose.model("Restro", restroSchema);
+const Restro = mongoose.models.Restro || mongoose.model("Restro", restroSchema);
+export default Restro;
