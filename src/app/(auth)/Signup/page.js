@@ -10,11 +10,35 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Link from "next/link"
+import { useState } from "react"
 
 function Signup() {
+ 
+  
+  //new part
 
-  const handleSubmit=(data)=>{
-     console.log(data)
+  //which type of entity signing up
+  const [AccountType,setAccountType]=useState("")
+
+  //name of ngo/restaurent
+  const [Name,setName]=useState("")
+
+  //email of ngo/restaurent
+  const [Email,SetEmail]=useState("")
+
+  //password 
+  const [Password,setPassword]=useState("")
+ 
+  //address
+  const [Address,setAddress]=useState("")
+
+  //phone number
+  const [Phone,setPhone]=useState("")
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+
+   
   }
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -22,7 +46,7 @@ function Signup() {
         {/* left side section */}
       <div className="hidden h-screen md:flex w-2/5 bg-primary items-center">
         <div className="text-4xl font-anton text-orange text-center">
-          Hey Welcome to KindMeal Community
+          Hey Welcome to KindMeal Community 
         </div>
       </div>
 
@@ -34,7 +58,7 @@ function Signup() {
           Resistration
         </h2>
 
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-2" onClick={()=>handleSubmit()}>
 
           {/* row1 */}
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
@@ -44,7 +68,7 @@ function Signup() {
                   <Label >Who You Are</Label>
 
                   <div>
-                  <Select >
+                  <Select onValueChange={(value) => setAccountType(value)}>
                     <SelectTrigger className="w-full border-black/20" >
                       <SelectValue placeholder="Sign up As a" />
                     </SelectTrigger>
@@ -60,7 +84,7 @@ function Signup() {
               <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Restraunt/NGO name</Label>
                 <div>
-                  <Input placeholder="username" className="border-black/20"/>
+                  <Input placeholder="YourName" className="border-black/20" onChange={(e)=>setName(e.target.value)}/>
                   <p className="text-[12px] invisible">{"msg"}</p>
                 </div>
               </div>      
@@ -73,7 +97,9 @@ function Signup() {
              <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
                 <div>
-                  <Input placeholder="abc@gmail.com" className="border-black/20"/>
+                  <Input placeholder="abc@gmail.com" className="border-black/20" onChange={(e)=>{
+                    SetEmail(e.target.value)
+                  }} />
                   <p className="text-[12px] invisible">{"msg"}</p>
                 </div>
               </div>
@@ -82,18 +108,20 @@ function Signup() {
             <div className="grid gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
               <div>
-                <Input placeholder="password" className="border-black/20 outline-black/70"/>
+                <Input placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
+                    setPassword(e.target.value)
+                }/>
                 <p className="text-[12px] invisible">{"msg"}</p>
               </div>
             </div>
           </div>
-
+ 
           {/* row3 */}
            {/* Address  */}
            <div className="grid gap-1.5">
             <Label>Address</Label>
             <div>
-              <textarea rows={3} placeholder="Address" className="resize-none w-full p-2 border-[1px] border-black/20 rounded-sm" />
+              <textarea rows={3} placeholder="Address" className="w-full p-2 resize-none border-[1px] border-black/20 rounded-sm" onChange={(e)=>setAddress(e.target.value)}/>
               <p className="text-[12px] invisible">{"msg"}</p>
             </div>
           </div>
@@ -103,14 +131,14 @@ function Signup() {
               <Label>Mobile</Label>
               <div>
                  <div className="flex gap-2">
-                    <Input placeholder="mobile" className="border-black/20"/>
+                    <Input placeholder="mobile" className="border-black/20" onChange={(e)=>setPhone(e.target.value)}/>
                     <Button variant="ghost" className="cursor-pointer">Verify</Button>
                  </div>
                 <p className="text-[12px] invisible">{"msg"}</p>
               </div>
           </div>
 
-          <Button type="submit" size="lg" className="cursor-pointer">Sign Up</Button>
+          <Button type="submit" size="lg" className="cursor-pointer" >Sign Up</Button>
         </form>
         
         <div className="w-full py-3 flex justify-center ">
