@@ -35,8 +35,10 @@ function Signup() {
   //phone number
   const [Phone,setPhone]=useState("")
 
-  const handleSubmit=()=>{
-    console.log(AccountType+" "+Name+" "+Email+" "+Password+" "+Address+" "+Phone)
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+
+   
   }
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -44,7 +46,7 @@ function Signup() {
         {/* left side section */}
       <div className="hidden h-screen md:flex w-2/5 bg-primary items-center">
         <div className="text-4xl font-anton text-orange text-center">
-          Hey Welcome to KindMeal Community {Phone}
+          Hey Welcome to KindMeal Community 
         </div>
       </div>
 
@@ -56,7 +58,7 @@ function Signup() {
           Resistration
         </h2>
 
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-2" onClick={()=>handleSubmit()}>
 
           {/* row1 */}
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
@@ -136,7 +138,7 @@ function Signup() {
               </div>
           </div>
 
-          <Button type="submit" size="lg" className="cursor-pointer" onClick={()=>handleSubmit()}>Sign Up</Button>
+          <Button type="submit" size="lg" className="cursor-pointer" >Sign Up</Button>
         </form>
         
         <div className="w-full py-3 flex justify-center ">
