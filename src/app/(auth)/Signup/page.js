@@ -39,17 +39,17 @@ function Signup() {
     console.log(AccountType+" "+Name+" "+Email+" "+Password+" "+Address+" "+Phone)
   }
   return (
-    <div className="flex  h-auto  w-screen  overflow-x-clip font-poppins">
+    <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
 
         {/* left side section */}
-      <div className="hidden md:flex w-2/5 bg-primary items-center">
+      <div className="hidden h-screen md:flex w-2/5 bg-primary items-center">
         <div className="text-4xl font-anton text-orange text-center">
           Hey Welcome to KindMeal Community {Phone}
         </div>
       </div>
 
        {/* right side part and main form */}
-      <div className="shadow-2xl   w-full p-8  md:w-4/5 lg:3/5 bg-white/90 ">
+      <div className="mx-10 rounded-sm shadow-sm w-full p-8  md:w-4/5 lg:3/5 bg-white/90 ">
          
          {/* Heading */}
         <h2 className="text-2xl text-black/80 font-semibold mb-6 text-center ">
@@ -119,7 +119,7 @@ function Signup() {
            <div className="grid gap-1.5">
             <Label>Address</Label>
             <div>
-              <textarea rows={3} placeholder="Address" className="w-full p-2 border-[1px] border-black/20 rounded-sm" onChange={(e)=>setAddress(e.target.value)}/>
+              <textarea rows={3} placeholder="Address" className="w-full p-2 resize-none border-[1px] border-black/20 rounded-sm" onChange={(e)=>setAddress(e.target.value)}/>
               <p className="text-[12px] invisible">{"msg"}</p>
             </div>
           </div>
@@ -140,7 +140,7 @@ function Signup() {
         </form>
         
         <div className="w-full py-3 flex justify-center ">
-          <p className="text-black/70 text-center">Already have an Account?<Link href={"#"} className="text-blue-900 font-semibold">Log In</Link></p>
+          <p className="text-black/70 text-center">Already have an Account?<Link href={"/login"} className="text-blue-900 font-semibold">Log In</Link></p>
         </div>
         
       </div>
