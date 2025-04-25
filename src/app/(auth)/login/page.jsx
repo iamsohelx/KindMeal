@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 import Link from "next/link"
 
-function Signup() {
+function Login() {
 
   const handleSubmit=(data)=>{
      console.log(data)
@@ -31,7 +31,7 @@ function Signup() {
          
          {/* Heading */}
         <h2 className="text-2xl text-black/80 font-semibold mb-6 text-center ">
-          Resistration
+             Login
         </h2>
 
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
@@ -40,7 +40,7 @@ function Signup() {
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
 
                 {/* ngo or restorent */}
-                <div className="grid gap-1.5 sm:w-1/2 w-full" >
+                <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2" >
                   <Label >Who You Are</Label>
 
                   <div>
@@ -56,65 +56,36 @@ function Signup() {
                   <p className="text-[12px] invisible">{"msg"}</p>
                   </div>
                 </div>
-              {/* username  */}
-              <div className="grid gap-1.5 sm:w-1/2 w-full">
-                <Label>Restraunt/NGO name</Label>
-                <div>
-                  <Input placeholder="username" className="border-black/20"/>
-                  <p className="text-[12px] invisible">{"msg"}</p>
-                </div>
-              </div>      
+              {/* username  */}     
           </div>
 
 
           {/* row2 */}
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
              {/* Email  */}
-             <div className="grid gap-1.5 sm:w-1/2 w-full">
+             <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
                 <div>
                   <Input placeholder="abc@gmail.com" className="border-black/20"/>
                   <p className="text-[12px] invisible">{"msg"}</p>
                 </div>
               </div>
-          
+              </div>
             {/* Password  */}
-            <div className="grid gap-1.5 sm:w-1/2 w-full">
+            <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
               <div>
                 <Input placeholder="password" className="border-black/20 outline-black/70"/>
                 <p className="text-[12px] invisible">{"msg"}</p>
               </div>
             </div>
-          </div>
+          
 
-          {/* row3 */}
-           {/* Address  */}
-           <div className="grid gap-1.5">
-            <Label>Address</Label>
-            <div>
-              <textarea rows={3} placeholder="Address" className="resize-none w-full p-2 border-[1px] border-black/20 rounded-sm" />
-              <p className="text-[12px] invisible">{"msg"}</p>
-            </div>
-          </div>
-         
-           {/* mobile  */}
-           <div className="grid gap-1.5 sm:w-1/2 w-full">
-              <Label>Mobile</Label>
-              <div>
-                 <div className="flex gap-2">
-                    <Input placeholder="mobile" className="border-black/20"/>
-                    <Button variant="ghost" className="cursor-pointer">Verify</Button>
-                 </div>
-                <p className="text-[12px] invisible">{"msg"}</p>
-              </div>
-          </div>
-
-          <Button type="submit" size="lg" className="cursor-pointer">Sign Up</Button>
+          <Button type="submit" size="lg" className="cursor-pointer">Login</Button>
         </form>
         
         <div className="w-full py-3 flex justify-center ">
-          <p className="text-black/70 text-center">Already have an Account?<Link href={"/login"} className="text-blue-900 font-semibold">Log In</Link></p>
+          <p className="text-black/70 text-center">Dont have an Account?<Link href={"/Signup"} className="text-blue-900 font-semibold">Sign Up</Link></p>
         </div>
         
       </div>
@@ -122,4 +93,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default Login
