@@ -9,5 +9,5 @@ const ngoSchema = new mongoose.Schema({
     verified:{type: Boolean, default: false},
     claimedListing:[{type: mongoose.Schema.Types.ObjectId, ref:"Listing"}]
 })
-
-module.exports = mongoose.models.Ngo || mongoose.model("Ngo", ngoSchema);
+const Ngo = mongoose.models.Ngo || mongoose.model("Ngo", ngoSchema)
+export default Ngo;
