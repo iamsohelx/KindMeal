@@ -2,6 +2,7 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 import {
   Select,
   SelectContent,
@@ -10,11 +11,27 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Link from "next/link"
+import { LoginUser } from "@/Actions/loginuser"
 
 function Login() {
 
-  const handleSubmit=(data)=>{
-     console.log(data)
+  //which type of entity signing up
+    const [AccountType,setAccountType]=useState("");
+  
+    //email of ngo/restaurent
+    const [Email,setEmail]=useState("")
+  
+    //password 
+    const [Password,setPassword]=useState("")
+
+  const handleSubmit= async (e)=>{
+      e.preventDefault();
+      const UserData = {
+        AccountType,
+        Email,
+        Password
+      }
+      await LoginUser(UserData);      
   }
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -44,7 +61,7 @@ function Login() {
                   <Label >Who You Are</Label>
 
                   <div>
-                  <Select >
+                  <Select onValueChange={(value) => setAccountType(value)} >
                     <SelectTrigger className="w-full border-black/20" >
                       <SelectValue placeholder="Sign up As a" />
                     </SelectTrigger>
@@ -66,7 +83,7 @@ function Login() {
              <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
                 <div>
-                  <Input placeholder="abc@gmail.com" className="border-black/20"/>
+                  <Input onChange={(e)=>setEmail(e.target.value)} placeholder="abc@gmail.com" className="border-black/20"/>
                   <p className="text-[12px] invisible">{"msg"}</p>
                 </div>
               </div>
@@ -75,7 +92,8 @@ function Login() {
             <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
               <div>
-                <Input placeholder="password" className="border-black/20 outline-black/70"/>
+                <Input onChange={(e)=>setPassword(e.target.value)} placeholder="password" className="border-black/20 outline-black/70"/>
+                  
                 <p className="text-[12px] invisible">{"msg"}</p>
               </div>
             </div>
