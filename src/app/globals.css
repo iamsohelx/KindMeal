@@ -4,9 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --primary-color: #00615f;
+  --primary-color: #4ADE80;
     --text-color-light: #5f6d6d;
-    --orange-color: #ff7973;
+    --orange-color: #F97316;
     --background-color-light: #f9f3f0;
     --tertiary-text-color-light: #339a72;
 
