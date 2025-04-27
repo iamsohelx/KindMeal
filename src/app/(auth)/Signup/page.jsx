@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/select"
 import Link from "next/link"
 import { useState } from "react"
+import { SignUpUser } from "@/Actions/signup-user"
+import { useRouter } from "next/navigation"
 
 function Signup() {
- 
-  
-  //new part
+  const router = useRouter()
 
   //which type of entity signing up
   const [AccountType,setAccountType]=useState("")
@@ -34,11 +34,32 @@ function Signup() {
 
   //phone number
   const [Phone,setPhone]=useState("")
+ 
+  
+ //handling user submit data
+ const handleSubmit=async (e)=>{
 
-  function handleSubmit(){
+      e.preventDefault()
+
+      const UserData={
+        AccountType,
+        Name,
+        Email,
+        Password,
+        Address,
+        Phone
+      }
+      
+      const result = await SignUpUser(UserData)
+
+      if(result.success){
+        router.push("/login")
+      }else{
+        console.log(result.error)
+      }
    
-
   }
+
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
 
@@ -57,7 +78,7 @@ function Signup() {
           Resistration
         </h2>
 
-        <form className="flex flex-col gap-2" onClick={()=>handleSubmit()}>
+        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
 
           {/* row1 */}
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
@@ -140,11 +161,7 @@ function Signup() {
           <Button  
            size="lg" 
            className="cursor-pointer" 
-           onClick={(e)=>{
-             e.preventDefault();
-             handleSubmit()
-           }}
-           >
+           type="submit" >
             Sign Up
            </Button>
         </form>
