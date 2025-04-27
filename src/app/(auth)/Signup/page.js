@@ -35,10 +35,9 @@ function Signup() {
   //phone number
   const [Phone,setPhone]=useState("")
 
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-
+  function handleSubmit(){
    
+
   }
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -138,7 +137,16 @@ function Signup() {
               </div>
           </div>
 
-          <Button type="submit" size="lg" className="cursor-pointer" >Sign Up</Button>
+          <Button  
+           size="lg" 
+           className="cursor-pointer" 
+           onClick={(e)=>{
+             e.preventDefault();
+             handleSubmit()
+           }}
+           >
+            Sign Up
+           </Button>
         </form>
         
         <div className="w-full py-3 flex justify-center ">
