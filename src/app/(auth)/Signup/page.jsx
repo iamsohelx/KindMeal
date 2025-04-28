@@ -13,10 +13,12 @@ import Link from "next/link"
 import { useState } from "react"
 import { SignUpUser } from "@/Actions/signup-user"
 import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
 
 function Signup() {
   const router = useRouter()
-
+  
+  const [IsSubmitting,setIsSubmitting]=useState(false)
   //which type of entity signing up
   const [AccountType,setAccountType]=useState("")
 
@@ -40,6 +42,7 @@ function Signup() {
  const handleSubmit=async (e)=>{
 
       e.preventDefault()
+      setIsSubmitting(true)
 
       const UserData={
         AccountType,
@@ -53,9 +56,15 @@ function Signup() {
       const result = await SignUpUser(UserData)
 
       if(result.success){
+
+        setIsSubmitting(false)
         router.push("/login")
+
       }else{
+
+        setIsSubmitting(false)
         console.log(result.error)
+
       }
    
   }
@@ -160,9 +169,11 @@ function Signup() {
 
           <Button  
            size="lg" 
-           className="cursor-pointer" 
+           className="cursor-pointer " 
            type="submit" >
-            Sign Up
+            {
+              IsSubmitting?<Loader />:"Sign Up"
+            }
            </Button>
         </form>
         

@@ -42,3 +42,7 @@ export async function SignUpUser(UserData){
        }
    }
 }
+
+export async function CheckEmailIsUnique(){
+   
+}
