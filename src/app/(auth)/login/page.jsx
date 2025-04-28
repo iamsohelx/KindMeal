@@ -3,6 +3,8 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
 import {
   Select,
   SelectContent,
@@ -14,7 +16,7 @@ import Link from "next/link"
 import { LoginUser } from "@/Actions/loginuser"
 
 function Login() {
-
+     const router = useRouter();
   //which type of entity signing up
     const [AccountType,setAccountType]=useState("");
   
@@ -24,14 +26,26 @@ function Login() {
     //password 
     const [Password,setPassword]=useState("")
 
+    // Set Loader
+    const [loader, setLoader] = useState(false);
+
   const handleSubmit= async (e)=>{
+      setLoader(true)
       e.preventDefault();
       const UserData = {
         AccountType,
         Email,
         Password
       }
-      await LoginUser(UserData);      
+    let result = await LoginUser(UserData); 
+    if(result?.success && result?.acc == "NGO"){
+       router.push("/ngo-dashboard")
+    }else if(result?.success && result?.acc == "Restaurant") {
+      router.push("/restro-dashboard")
+    }else{
+      console.log("Error Occure"); 
+    } 
+    setLoader(false);
   }
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -99,7 +113,9 @@ function Login() {
             </div>
           
 
-          <Button type="submit" size="lg" className="cursor-pointer">Login</Button>
+          <Button type="submit" size="lg" className="cursor-pointer">
+            {loader?<Loader strokeWidth={3} size={100} className="animate-spin"/>:"Login"}
+          </Button>
         </form>
         
         <div className="w-full py-3 flex justify-center ">
