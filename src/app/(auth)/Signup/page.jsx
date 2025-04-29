@@ -10,10 +10,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import Link from "next/link"
-import { useState } from "react"
-import { SignUpUser } from "@/Actions/signup-user"
+import { useEffect, useState } from "react"
+import { SignUpUser,CheckEmailIsUnique,ValidEmail} from "@/Actions/signup-user"
 import { useRouter } from "next/navigation"
-import { Loader } from "lucide-react"
+import { Loader,Loader2 } from "lucide-react"
+
 
 function Signup() {
   const router = useRouter()
@@ -36,7 +37,15 @@ function Signup() {
 
   //phone number
   const [Phone,setPhone]=useState("")
- 
+
+
+  ////Error msg variables
+  // const [AccountTypeErrMsg,setAccountTypeErrMsg]=useState("")
+  const [NameErrMsg,setNameErrMsg]=useState("")
+  const [EmailErrMsg,setEmailErrMsg]=useState("")
+  // const [PasswordErrMsg,setPasswordErrMsg]=useState("")
+  // const [AddressErrMsg,setAddressErrMsg]=useState("")
+  // const [PhoneErrMsg,setPhoneErrMsg]=useState("")
   
  //handling user submit data
  const handleSubmit=async (e)=>{
@@ -68,6 +77,42 @@ function Signup() {
       }
    
   }
+  
+  // check email input box function
+  const [EmailLoader,setEmailLoader]=useState(false)
+  const [IsTextGreen,setIsTextGreen]=useState(false)
+  async function  EmailValidationFunction(emailValue){
+    if(emailValue){
+      // checks the format of email
+      if(!(await (ValidEmail(emailValue)))){
+        //for red color text
+        setIsTextGreen(false)
+        //for stoping loader
+        setEmailLoader(false)
+        //for sending msg 
+        setEmailErrMsg("Invalid email format");
+        return;
+      }
+      //check email is already present in database or not
+       const IsEmailUnique = await CheckEmailIsUnique(AccountType,emailValue)
+       if(IsEmailUnique)
+        { 
+          //msg color
+          setIsTextGreen(IsEmailUnique.success)
+          //for stopping loading
+          setEmailLoader(false)
+        }
+       
+       setEmailErrMsg(IsEmailUnique.msg)
+       return IsEmailUnique;
+    }else{
+      setEmailErrMsg("")
+    }
+  }
+  //triggers when email or accounttype changes
+  useEffect(()=>{
+    EmailValidationFunction(Email)
+  },[AccountType,Email])
 
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -96,8 +141,13 @@ function Signup() {
                 <div className="grid gap-1.5 sm:w-1/2 w-full" >
                   <Label >Who You Are</Label>
 
-                  <div>
-                  <Select onValueChange={(value) => setAccountType(value)}>
+                  <div className="grid gap-1">
+                  <Select onValueChange={(value) => {
+                     setAccountType(value)
+                     setNameErrMsg("")
+                    }
+                  }
+                   >
                     <SelectTrigger className="w-full border-black/20" >
                       <SelectValue placeholder="Sign up As a" />
                     </SelectTrigger>
@@ -112,9 +162,20 @@ function Signup() {
               {/* username  */}
               <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Restraunt/NGO name</Label>
-                <div>
-                  <Input placeholder="YourName" className="border-black/20" onChange={(e)=>setName(e.target.value)}/>
-                  <p className="text-[12px] invisible">{"msg"}</p>
+                <div className="grid gap-1">
+                  <Input placeholder="YourName" value={Name}
+                  className={`${NameErrMsg?"border-red-500 ":"border-black/20"}`} 
+                  onChange={(e)=>{
+                    if(AccountType){
+                      setName(e.target.value)
+                    }else{
+                      setNameErrMsg("Please First choose Who you are")
+                    }
+                  }}/>
+                  <p className={`text-[12px] font-semibold text-red-600/80 ${NameErrMsg?"visible":"invisible"}`}>   {
+                        NameErrMsg?NameErrMsg:"errMsg"
+                      }
+                  </p>
                 </div>
               </div>      
           </div>
@@ -125,18 +186,31 @@ function Signup() {
              {/* Email  */}
              <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
-                <div>
-                  <Input placeholder="abc@gmail.com" className="border-black/20" onChange={(e)=>{
-                    SetEmail(e.target.value)
+                <div className="grid gap-1">
+                  <Input placeholder="abc@gmail.com"   value={Email} className="border-black/20" onChange={async(e)=>{
+                    if(AccountType){
+                      const emailValue = e.target.value
+                      SetEmail(e.target.value)
+                      setEmailLoader(true)
+                      EmailValidationFunction(emailValue)
+                    }else{
+                      setEmailLoader(false)
+                      setEmailErrMsg("Invalid account type")
+                    }
+                    
                   }} />
-                  <p className="text-[12px] invisible">{"msg"}</p>
+                  <p className={`text-[12px] font-semibold ${IsTextGreen?"text-green-600/80":"text-red-600/80"}  ${EmailErrMsg?"visible":"invisible"}`}>   {
+                        EmailLoader?<Loader2 className="animate-spin text-black/70 font-bold" size={"18px"} />: EmailErrMsg?EmailErrMsg:"errMsg"
+                       
+                      }
+                  </p>
                 </div>
               </div>
           
             {/* Password  */}
             <div className="grid gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
-              <div>
+              <div className="grid gap-1">
                 <Input placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
                     setPassword(e.target.value)
                 }/>
@@ -149,7 +223,7 @@ function Signup() {
            {/* Address  */}
            <div className="grid gap-1.5">
             <Label>Address</Label>
-            <div>
+            <div className="grid gap-1">
               <textarea rows={3} placeholder="Address" className="w-full p-2 resize-none border-[1px] border-black/20 rounded-sm" onChange={(e)=>setAddress(e.target.value)}/>
               <p className="text-[12px] invisible">{"msg"}</p>
             </div>
@@ -158,7 +232,7 @@ function Signup() {
            {/* mobile  */}
            <div className="grid gap-1.5 sm:w-1/2 w-full">
               <Label>Mobile</Label>
-              <div>
+              <div className="grid gap-1">
                  <div className="flex gap-2">
                     <Input placeholder="mobile" className="border-black/20" onChange={(e)=>setPhone(e.target.value)}/>
                     <Button variant="ghost" className="cursor-pointer">Verify</Button>
@@ -172,7 +246,7 @@ function Signup() {
            className="cursor-pointer " 
            type="submit" >
             {
-              IsSubmitting?<Loader />:"Sign Up"
+              IsSubmitting?<Loader strokeWidth={3} size={100} className="animate-spin"/>:"Sign Up"
             }
            </Button>
         </form>
