@@ -42,3 +42,48 @@ export async function SignUpUser(UserData){
        }
    }
 }
+
+//validates email structure
+export async function ValidEmail(Email){
+    const regex = /^\S+@\S+\.\S+$/;
+    return regex.test(Email);
+}
+
+
+export async function CheckEmailIsUnique(AccountType, Email) {
+    try {
+      await connDB();
+      
+      let User = null;
+  
+      if (AccountType === "NGO") {
+        User = await Ngo.findOne({ email: Email });
+      } else if (AccountType === "Restaurant") {
+        User = await Restro.findOne({ email: Email });
+      } else {
+        return {
+          success: false,
+          msg: "Invalid account type",
+        };
+      }
+      if (User) {
+        return {
+          success: false,
+          msg: "Email already exists",
+        };
+      } else {
+        return {
+          success: true,
+          msg: "Email is available",
+        };
+      }
+  
+    } catch (err) {
+      console.error("Error checking email uniqueness:", err);
+      return {
+        success: false,
+        msg: "Server error, please try again later",
+        error: err.message || String(err),
+      };
+    }
+  }
