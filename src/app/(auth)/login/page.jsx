@@ -75,7 +75,7 @@ function Login() {
                   <Label >Who You Are</Label>
 
                   <div>
-                  <Select onValueChange={(value) => setAccountType(value)} >
+                  <Select required onValueChange={(value) => setAccountType(value)} >
                     <SelectTrigger className="w-full border-black/20" >
                       <SelectValue placeholder="Sign up As a" />
                     </SelectTrigger>
@@ -97,7 +97,7 @@ function Login() {
              <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
                 <div>
-                  <Input onChange={(e)=>setEmail(e.target.value)} placeholder="abc@gmail.com" className="border-black/20"/>
+                  <Input required onChange={(e)=>setEmail(e.target.value)} placeholder="abc@gmail.com" className="border-black/20"/>
                   <p className="text-[12px] invisible">{"msg"}</p>
                 </div>
               </div>
@@ -106,7 +106,7 @@ function Login() {
             <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
               <div>
-                <Input onChange={(e)=>setPassword(e.target.value)} placeholder="password" className="border-black/20 outline-black/70"/>
+                <Input required onChange={(e)=>setPassword(e.target.value)} placeholder="password" className="border-black/20 outline-black/70"/>
                   
                 <p className="text-[12px] invisible">{"msg"}</p>
               </div>

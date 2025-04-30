@@ -142,7 +142,7 @@ function Signup() {
                   <Label >Who You Are</Label>
 
                   <div className="grid gap-1">
-                  <Select onValueChange={(value) => {
+                  <Select required onValueChange={(value) => {
                      setAccountType(value)
                      setNameErrMsg("")
                     }
@@ -163,7 +163,7 @@ function Signup() {
               <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Restraunt/NGO name</Label>
                 <div className="grid gap-1">
-                  <Input placeholder="YourName" value={Name}
+                  <Input required placeholder="YourName" value={Name}
                   className={`${NameErrMsg?"border-red-500 ":"border-black/20"}`} 
                   onChange={(e)=>{
                     if(AccountType){
@@ -187,7 +187,7 @@ function Signup() {
              <div className="grid gap-1.5 sm:w-1/2 w-full">
                 <Label>Email</Label>
                 <div className="grid gap-1">
-                  <Input placeholder="abc@gmail.com"   value={Email} className="border-black/20" onChange={async(e)=>{
+                  <Input required placeholder="abc@gmail.com"   value={Email} className="border-black/20" onChange={async(e)=>{
                     if(AccountType){
                       const emailValue = e.target.value
                       SetEmail(e.target.value)
@@ -211,7 +211,7 @@ function Signup() {
             <div className="grid gap-1.5 sm:w-1/2 w-full">
               <Label>Password</Label>
               <div className="grid gap-1">
-                <Input placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
+                <Input required placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
                     setPassword(e.target.value)
                 }/>
                 <p className="text-[12px] invisible">{"msg"}</p>
