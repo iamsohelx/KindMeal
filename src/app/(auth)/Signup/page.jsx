@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { SignUpUser,CheckEmailIsUnique,ValidEmail} from "@/Actions/signup-user"
+import { SignUpUser,CheckEmailIsUnique} from "@/Actions/signup-user"
 import { useRouter } from "next/navigation"
 import { Loader,Loader2 } from "lucide-react"
 
@@ -43,9 +43,12 @@ function Signup() {
   // const [AccountTypeErrMsg,setAccountTypeErrMsg]=useState("")
   const [NameErrMsg,setNameErrMsg]=useState("")
   const [EmailErrMsg,setEmailErrMsg]=useState("")
-  // const [PasswordErrMsg,setPasswordErrMsg]=useState("")
+  const [PasswordErrMsg,setPasswordErrMsg]=useState("")
   // const [AddressErrMsg,setAddressErrMsg]=useState("")
-  // const [PhoneErrMsg,setPhoneErrMsg]=useState("")
+  const [PhoneErrMsg,setPhoneErrMsg]=useState("")
+
+  //show password 
+  const [showPassword,setShowPassword]=useState(false)
   
  //handling user submit data
  const handleSubmit=async (e)=>{
@@ -81,10 +84,17 @@ function Signup() {
   // check email input box function
   const [EmailLoader,setEmailLoader]=useState(false)
   const [IsTextGreen,setIsTextGreen]=useState(false)
+  
+  function ValidEmail(Email){
+      const regex = /^\S+@\S+\.\S+$/;
+      return regex.test(Email);
+  }
+  
+
   async function  EmailValidationFunction(emailValue){
     if(emailValue){
       // checks the format of email
-      if(!(await (ValidEmail(emailValue)))){
+      if(!(ValidEmail(emailValue))){
         //for red color text
         setIsTextGreen(false)
         //for stoping loader
@@ -102,17 +112,46 @@ function Signup() {
           //for stopping loading
           setEmailLoader(false)
         }
-       
+       //setting error msg
        setEmailErrMsg(IsEmailUnique.msg)
        return IsEmailUnique;
     }else{
       setEmailErrMsg("")
     }
   }
+  
   //triggers when email or accounttype changes
   useEffect(()=>{
     EmailValidationFunction(Email)
   },[AccountType,Email])
+
+
+  //check mobile number is valid or not
+  function validMobileNumber(MobileNumber){
+    const regex = /^[6-9]\d{9}$/;
+    return regex.test(parseInt(MobileNumber))
+  }
+  
+  
+  //check user can sign up or not if he filled all values properly allow him to signup
+  const [IsAllFieldsFilledResult, setIsAllFieldsFilledResult] = useState(false);
+
+function IsAllFieldsFilled() {
+  // Make sure all fields are filled and have no error messages
+  const allFieldsFilled =
+    Name && Phone && Password && Email && Address && AccountType;
+
+  const noErrors =
+    !NameErrMsg && !PhoneErrMsg && !PasswordErrMsg;
+
+  return allFieldsFilled && noErrors;
+}
+
+useEffect(() => {
+  setIsAllFieldsFilledResult(IsAllFieldsFilled());
+}, [AccountType, Name, Email, Address, Phone, Password, NameErrMsg, PhoneErrMsg, PasswordErrMsg]);
+
+
 
   return (
     <div className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins">
@@ -139,14 +178,14 @@ function Signup() {
 
                 {/* ngo or restorent */}
                 <div className="grid gap-1.5 sm:w-1/2 w-full" >
-                  <Label >Who You Are</Label>
+                  <Label >Who You Are *</Label>
 
                   <div className="grid gap-1">
                   <Select onValueChange={(value) => {
                      setAccountType(value)
                      setNameErrMsg("")
                     }
-                  }
+                  } 
                    >
                     <SelectTrigger className="w-full border-black/20" >
                       <SelectValue placeholder="Sign up As a" />
@@ -161,7 +200,7 @@ function Signup() {
                 </div>
               {/* username  */}
               <div className="grid gap-1.5 sm:w-1/2 w-full">
-                <Label>Restraunt/NGO name</Label>
+                <Label>Restraunt/NGO name *</Label>
                 <div className="grid gap-1">
                   <Input placeholder="YourName" value={Name}
                   className={`${NameErrMsg?"border-red-500 ":"border-black/20"}`} 
@@ -185,7 +224,7 @@ function Signup() {
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
              {/* Email  */}
              <div className="grid gap-1.5 sm:w-1/2 w-full">
-                <Label>Email</Label>
+                <Label>Email *</Label>
                 <div className="grid gap-1">
                   <Input placeholder="abc@gmail.com"   value={Email} className="border-black/20" onChange={async(e)=>{
                     if(AccountType){
@@ -195,7 +234,7 @@ function Signup() {
                       EmailValidationFunction(emailValue)
                     }else{
                       setEmailLoader(false)
-                      setEmailErrMsg("Invalid account type")
+                      setEmailErrMsg("first select who you are")
                     }
                     
                   }} />
@@ -209,12 +248,29 @@ function Signup() {
           
             {/* Password  */}
             <div className="grid gap-1.5 sm:w-1/2 w-full">
-              <Label>Password</Label>
-              <div className="grid gap-1">
-                <Input placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
-                    setPassword(e.target.value)
-                }/>
-                <p className="text-[12px] invisible">{"msg"}</p>
+              <Label>Password *</Label>
+              <div className="grid gap-1 relative">
+                <Input placeholder="password" className="border-black/20 outline-black/70 relative" onChange={(e)=>{
+                   setPassword(e.target.value)
+                   if(Password.length<8){
+                    setPasswordErrMsg("Minimum length must 8 character")
+                   }else{
+                    setPasswordErrMsg("")
+                   }
+                }           
+                } type={showPassword?"text":"password"}/> 
+               {/* show button  */}
+               <div className="absolute right-0 top-0">
+                  <Button variant="ghost" className="cursor-pointer" onClick={()=>{
+                    setShowPassword(!showPassword)
+                  }} type="button">
+                     Show
+                  </Button>
+               </div>
+                <p className={`text-[12px] font-semibold text-red-600/80 ${PasswordErrMsg?"visible":"invisible"}`}>   {
+                        PasswordErrMsg?PasswordErrMsg:"errMsg"
+                      }
+                </p>
               </div>
             </div>
           </div>
@@ -222,7 +278,7 @@ function Signup() {
           {/* row3 */}
            {/* Address  */}
            <div className="grid gap-1.5">
-            <Label>Address</Label>
+            <Label>Address *</Label>
             <div className="grid gap-1">
               <textarea rows={3} placeholder="Address" className="w-full p-2 resize-none border-[1px] border-black/20 rounded-sm" onChange={(e)=>setAddress(e.target.value)}/>
               <p className="text-[12px] invisible">{"msg"}</p>
@@ -231,20 +287,38 @@ function Signup() {
          
            {/* mobile  */}
            <div className="grid gap-1.5 sm:w-1/2 w-full">
-              <Label>Mobile</Label>
+              <Label>Mobile *</Label>
               <div className="grid gap-1">
                  <div className="flex gap-2">
-                    <Input placeholder="mobile" className="border-black/20" onChange={(e)=>setPhone(e.target.value)}/>
-                    <Button variant="ghost" className="cursor-pointer">Verify</Button>
+                    <Input placeholder="mobile" className="border-black/20" 
+                    onChange={(e)=>{
+                      const PhoneNumber = e.target.value
+                      setPhone(PhoneNumber)
+                      if(PhoneNumber.length!=10){
+                        setPhoneErrMsg("Length must be 10 digits")
+                       }else{
+                        if(!(validMobileNumber(PhoneNumber))){
+                          setPhoneErrMsg("Invalid Mobile Number")
+                          return;
+                        }
+                         setPhoneErrMsg("")
+                       }
+                      
+                    }}/>
+                    <Button variant="ghost" className="cursor-pointer" type="button" disabled>Verify</Button>
                  </div>
-                <p className="text-[12px] invisible">{"msg"}</p>
+                 <p className={`text-[12px] font-semibold text-red-600/80 ${PhoneErrMsg?"visible":"invisible"}`}>   {
+                        PhoneErrMsg?PhoneErrMsg:"errMsg"
+                      }
+                  </p>
               </div>
           </div>
 
           <Button  
            size="lg" 
            className="cursor-pointer " 
-           type="submit" >
+           type="submit" 
+           disabled={!IsAllFieldsFilledResult} >
             {
               IsSubmitting?<Loader strokeWidth={3} size={100} className="animate-spin"/>:"Sign Up"
             }
