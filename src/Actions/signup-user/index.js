@@ -43,12 +43,6 @@ export async function SignUpUser(UserData){
    }
 }
 
-//validates email structure
-export async function ValidEmail(Email){
-    const regex = /^\S+@\S+\.\S+$/;
-    return regex.test(Email);
-}
-
 
 export async function CheckEmailIsUnique(AccountType, Email) {
     try {
@@ -63,7 +57,7 @@ export async function CheckEmailIsUnique(AccountType, Email) {
       } else {
         return {
           success: false,
-          msg: "Invalid account type",
+          msg: "first select who you are",
         };
       }
       if (User) {
