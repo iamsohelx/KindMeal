@@ -142,14 +142,14 @@ function IsAllFieldsFilled() {
     Name && Phone && Password && Email && Address && AccountType;
 
   const noErrors =
-    !NameErrMsg && !PhoneErrMsg && !PasswordErrMsg;
+    !NameErrMsg && !PhoneErrMsg && !PasswordErrMsg && IsTextGreen;
 
   return allFieldsFilled && noErrors;
 }
 
 useEffect(() => {
   setIsAllFieldsFilledResult(IsAllFieldsFilled());
-}, [AccountType, Name, Email, Address, Phone, Password, NameErrMsg, PhoneErrMsg, PasswordErrMsg]);
+}, [AccountType, Name, Email, Address, Phone, Password, NameErrMsg, PhoneErrMsg, PasswordErrMsg,IsTextGreen]);
 
 
 
