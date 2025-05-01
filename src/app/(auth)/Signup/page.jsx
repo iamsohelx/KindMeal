@@ -142,14 +142,14 @@ function IsAllFieldsFilled() {
     Name && Phone && Password && Email && Address && AccountType;
 
   const noErrors =
-    !NameErrMsg && !PhoneErrMsg && !PasswordErrMsg;
+    !NameErrMsg && !PhoneErrMsg && !PasswordErrMsg && IsTextGreen;
 
   return allFieldsFilled && noErrors;
 }
 
 useEffect(() => {
   setIsAllFieldsFilledResult(IsAllFieldsFilled());
-}, [AccountType, Name, Email, Address, Phone, Password, NameErrMsg, PhoneErrMsg, PasswordErrMsg]);
+}, [AccountType, Name, Email, Address, Phone, Password, NameErrMsg, PhoneErrMsg, PasswordErrMsg,IsTextGreen]);
 
 
 
@@ -218,7 +218,7 @@ useEffect(() => {
                 </div>
               </div>      
           </div>
-
+       
 
           {/* row2 */}
           <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
@@ -271,17 +271,11 @@ useEffect(() => {
                 <p className={`text-[12px] font-semibold text-red-600/80 ${PasswordErrMsg?"visible":"invisible"}`}>   {
                         PasswordErrMsg?PasswordErrMsg:"errMsg"
                       }
-                </p>
-              <Label>Password</Label>
-              <div className="grid gap-1">
-                <Input placeholder="password" className="border-black/20 outline-black/70" onChange={(e)=>
-                    setPassword(e.target.value)
-                }/>
-                <p className="text-[12px] invisible">{"msg"}</p>
-              </div>
+                </p>             
             </div>
           </div>
- 
+          </div>
+          
           {/* row3 */}
            {/* Address  */}
            <div className="grid gap-1.5">
