@@ -23,6 +23,7 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { AddItem } from "@/Actions/AddItem";
 
 const Page = () => {
   // For Dialog Open/Close
@@ -36,9 +37,12 @@ const Page = () => {
     img: "",
   });
 
-  const handelSubmit = () => {
-    console.log(FormData);
-
+  const openSubmit = () => {
+    setOpenDialog(true);
+  }
+  const handelSubmit = async () => {
+    
+    let res = await AddItem(FormData)
     openDialog ? setOpenDialog(false) : setOpenDialog(true);
   };
   return (
@@ -119,7 +123,7 @@ const Page = () => {
           <Button onClick={handelSubmit}>Add Food</Button>
         </DialogContent>
       </Dialog>
-      <Button onClick={handelSubmit}>Add Food</Button>
+      <Button onClick={openSubmit}>Add Food</Button>
     </div>
   );
 };
