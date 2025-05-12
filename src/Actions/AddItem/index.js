@@ -1,0 +1,52 @@
+// /actions/upload.js
+'use server';
+
+import connDB from "@/database/dbconnection";
+import Fooditem from "@/database/Models/fooditem";
+import cloudinary from "@/lib/config/cloudinary";
+import Jwt from 'jsonwebtoken'
+import { cookies } from "next/headers";
+
+export async function AddItem(FormData) {
+
+  const { foodname, expiry, description, address, img } = FormData;
+
+  const file = img;
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+ 
+  const uploadRes = await new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    }).end(buffer);
+  });
+
+  let cookieStore = cookies();
+  let token = (await cookieStore).get('token')
+  console.log(token);
+  
+const restroUser = Jwt.verify(token.value, 'kindmeal2911');
+  console.log(restroUser.restroname);
+
+  const date = new Date();
+  const formatted = date.toLocaleString('en-GB',{
+    day:'numeric',
+    month:'short',
+    year:'numeric',
+    hour:'numeric',
+    hour12:true,
+  }).replace(':00','').replace(' pm' || ' am','pm'||'am').toLowerCase().toString()
+  
+    await connDB() 
+    let res = await Fooditem.create({
+      foodname,
+      expiry,
+      description,
+      address,
+      restroid: restroUser.userid,
+      restroname: restroUser.restroname,
+      date:formatted,
+      imgurl:uploadRes.secure_url
+    }) 
+}
