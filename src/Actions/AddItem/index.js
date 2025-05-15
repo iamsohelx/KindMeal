@@ -11,23 +11,21 @@ export async function AddItem(FormData) {
 
   const { foodname, expiry, description, address, img } = FormData;
 
-  const file = img;
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
+  // const file = img;
+  // const arrayBuffer = await file.arrayBuffer();
+  // const buffer = Buffer.from(arrayBuffer);
  
-  const uploadRes = await new Promise((resolve, reject) => {
-    cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
-      if (err) reject(err);
-      else resolve(result);
-    }).end(buffer);
-  });
+  // const uploadRes = await new Promise((resolve, reject) => {
+  //   cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+  //     if (err) reject(err);
+  //     else resolve(result);
+  //   }).end(buffer);
+  // });
 
   let cookieStore = cookies();
   let token = (await cookieStore).get('token')
-  console.log(token);
   
 const restroUser = Jwt.verify(token.value, 'kindmeal2911');
-  console.log(restroUser.restroname);
 
   const date = new Date();
   const formatted = date.toLocaleString('en-GB',{
@@ -47,6 +45,18 @@ const restroUser = Jwt.verify(token.value, 'kindmeal2911');
       restroid: restroUser.userid,
       restroname: restroUser.restroname,
       date:formatted,
-      imgurl:uploadRes.secure_url
-    }) 
+    //  imgurl:uploadRes.secure_url
+    })     
+
+    if(res){
+      return {
+        success: true,
+        id: JSON.parse(JSON.stringify(res._id)),
+        restroname: JSON.parse(JSON.stringify(res.restroname))
+      }
+    }
+    return {
+      success: false,
+      msg: "Something went wrong"
+    }
 }

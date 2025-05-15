@@ -20,9 +20,13 @@ export default function SocketHandler(req, res) {
     io.on("connection", (socket) => {
       console.log("Client connected:", socket.id);
 
-      socket.on("message", (message) => {
+      socket.on("Notification", (notification) => {
+        console.log(notification.id + "SOCKET WALA");
+        console.log("Sockettttttt");
+        
+        
         // Broadcast to all connected clients
-        io.emit("message", message);
+        io.emit("getNotification", notification);
       });
 
       socket.on("disconnect", () => {

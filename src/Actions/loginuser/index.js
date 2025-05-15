@@ -14,7 +14,7 @@ export async function LoginUser(UserData) {
      if(AccountType==="NGO"){
         user = await Ngo.findOne({email:Email});
         if(user && (Password == user.password)){
-         let token = Jwt.sign({email:user.email,userid:user._id,ngoname:user.name},"kindmeal2911")
+         let token = Jwt.sign({email:user.email,userid:user._id,ngoname:user.name, acctype:AccountType},"kindmeal2911")
          let cookieStore = await cookies()
          cookieStore.set("token",token)           
         }
@@ -22,7 +22,7 @@ export async function LoginUser(UserData) {
      if(AccountType==="Restaurant"){
       user = await Restro.findOne({email:Email});
       if(user && (Password == user.password)){
-       let token = Jwt.sign({email:user.email,userid:user._id,restroname:user.name},"kindmeal2911")
+       let token = Jwt.sign({email:user.email,userid:user._id,restroname:user.name, acctype:AccountType},"kindmeal2911")
        let cookieStore = await cookies()
        cookieStore.set("token",token)           
       }
