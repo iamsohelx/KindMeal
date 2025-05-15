@@ -1,129 +1,40 @@
 "use client";
-import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React, { useState, useEffect } from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { AddItem } from "@/Actions/AddItem";
+import SidebarCopm from "../components/SidebarCopm";
+import FoodAddFrom from "../components/FoodAddForm";
+import { BarGraph } from "../components/BarGraph";
+import MyPostedFood from "../components/MyPostedFood";
+import { Separator } from "@/components/ui/separator";
 
 const Page = () => {
-  // For Dialog Open/Close
-  const [openDialog, setOpenDialog] = useState(false);
-  // Form Data Handle
-  const [FormData, setFormData] = useState({
-    foodname: "",
-    expiry: "",
-    description: "",
-    address: "",
-    img: "",
-  });
-
-  const openSubmit = () => {
-    setOpenDialog(true);
-  }
-  const handelSubmit = async () => {
-    
-    let res = await AddItem(FormData)
-    openDialog ? setOpenDialog(false) : setOpenDialog(true);
-  };
   return (
-    <div>
-      <Dialog open={openDialog}>
-        <DialogContent>
-          <DialogTitle>Post Food Item</DialogTitle>
-          <Label htmlFor="message">Food Name</Label>
-          <Input
-            placeholder="Food Name"
-            value={FormData.foodname}
-            onChange={(e) => {
-              setFormData({
-                ...FormData,
-                foodname: e.target.value,
-              });
-            }}
-          />
-          <Label htmlFor="message">Select Expiry</Label>
-          <Select
-            onValueChange={(value) =>
-              setFormData({
-                ...FormData,
-                expiry: value,
-              })
-            }
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select Expiry Time" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Expiry</SelectLabel>
-                <SelectItem value="1">1 Hour</SelectItem>
-                <SelectItem value="2">2 Hours</SelectItem>
-                <SelectItem value="3">3 Hours</SelectItem>
-                <SelectItem value="6">6 Hours</SelectItem>
-                <SelectItem value="12">12 Hours</SelectItem>
-                <SelectItem value="24">24 Hours</SelectItem>
-                <SelectItem value="48">48 Hours</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+    <div className="flex w-screen h-screen">
+      <SidebarCopm/>
+      <div className="flex w-full h-full overflow-hidden">
+        <div className="w-[65%] flex flex-col justify-between p-5 h-full overflow-hidden">
+          <div className=" flex justify-between border-2 rounded-sm overflow-hidden p-3 h-[20%]">
+            <div className="w-full p-1">
+             Dashboard
+            </div>
+            <Separator orientation="vertical"/>
+             <div className="w-full p-1">
+            <FoodAddFrom/>
+             </div>
+             <Separator orientation="vertical"/>
+            <div className="w-full p-1">Total Food</div>
+          </div>
+          <div className="border-2 p-2 flex justify-center items-center rounded-sm overflow-hidden h-[75%]">
+            <BarGraph/>
+          </div>
+        </div>
+        <div className="w-[35%] p-5 overflow-hidden rounded-sm">
+          <div className=" w-full border-2 rounded-md p-5 h-full overflow-scroll no-scrollbar">
+            <MyPostedFood/>
+          </div>
+        </div>
 
-          <Label htmlFor="message">Description</Label>
-          <Textarea
-            className="resize-none"
-            placeholder="Type your message here."
-            id="message"
-            value={FormData.description}
-            onChange={(e) =>
-              setFormData({
-                ...FormData,
-                description: e.target.value,
-              })
-            }
-          />
-          <Label htmlFor="message">Address</Label>
-          <Input
-            placeholder="Address"
-            value={FormData.address}
-            onChange={(e) =>
-              setFormData({
-                ...FormData,
-                address: e.target.value,
-              })
-            }
-          />
-          <Label htmlFor="picture">Picture</Label>
-          <Input id="picture"
-                 type="file"
-                 onChange={(e)=>setFormData({
-                  ...FormData,
-                  img:e.target.files?.[0]
-                 })}
-
-          />
-          <Button onClick={handelSubmit}>Add Food</Button>
-        </DialogContent>
-      </Dialog>
-      <Button onClick={openSubmit}>Add Food</Button>
+      </div>
     </div>
   );
 };
