@@ -6,6 +6,8 @@ import FoodAddFrom from "../components/FoodAddForm";
 import { BarGraph } from "../components/BarGraph";
 import MyPostedFood from "../components/MyPostedFood";
 import { Separator } from "@/components/ui/separator";
+import DashboardUserDetails from "../components/DashboardUserDetails";
+import { RadialChart } from "../components/RadialChart";
 
 const Page = () => {
   return (
@@ -16,13 +18,16 @@ const Page = () => {
           <div className=" flex justify-between border-2 rounded-sm overflow-hidden p-3 h-[20%]">
             <div className="w-full p-1">
              Dashboard
+             <DashboardUserDetails/>
             </div>
             <Separator orientation="vertical"/>
-             <div className="w-full p-1">
+             <div className="w-full p-1 flex items-center justify-center">
             <FoodAddFrom/>
              </div>
              <Separator orientation="vertical"/>
-            <div className="w-full p-1">Total Food</div>
+            <div className="w-full p-1 flex ">
+              <RadialChart/>
+            </div>
           </div>
           <div className="border-2 p-2 flex justify-center items-center rounded-sm overflow-hidden h-[75%]">
             <BarGraph/>
