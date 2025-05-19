@@ -36,17 +36,28 @@ const restroUser = Jwt.verify(token.value, 'kindmeal2911');
     hour12:true,
   }).replace(':00','').replace(' pm' || ' am','pm'||'am').toLowerCase().toString()
   
+    const monthname = date.toLocaleString('default', {
+       month:'short',
+  })
+
+  const letters = [...Array(3)].map(()=> String.fromCharCode(65 + Math.random() * 26 | 0)).join('');
+  const numbers = Math.floor(100 + Math.random() * 900);
+  const foodid = letters.concat(numbers);
+
+  
     await connDB() 
     let res = await Fooditem.create({
       foodname,
+      foodid,
       expiry,
       description,
       address,
+      month: monthname,
       restroid: restroUser.userid,
       restroname: restroUser.restroname,
       date:formatted,
     //  imgurl:uploadRes.secure_url
-    })     
+    })      
 
     if(res){
       return {

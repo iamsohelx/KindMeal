@@ -12,11 +12,23 @@ export async function GetMyFoodItem(params) {
 
         await connDB()
         const foodData = await Fooditem.find({restroid: UserData.userid})
+        const monthFrequency = {};
+
+       await foodData.forEach(item => {
+            const month = item.month.toLowerCase();
+            monthFrequency[month] = (monthFrequency[month] || 0) + 1;
+        });
+        console.log("month Servr");
+        
+        console.log(monthFrequency);
+        
+
 
         if(foodData){
             return {
                 success: true,
-                data: JSON.parse(JSON.stringify(foodData))
+                data: JSON.parse(JSON.stringify(foodData)),
+                monthFrequency: JSON.parse(JSON.stringify(monthFrequency))
             }
         }
 
