@@ -3,12 +3,14 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { GetOneFoodItem } from "@/Actions/GetFoodItem";
+import { Suspense } from "react";
 
 // Acernity Ui
 import { cn } from "@/lib/utils";
 
 const Page = () => {
   const [FoodData, setFoodData] = useState(null);
+  
   const param = useSearchParams();
   const id = param.get("id");
 
@@ -24,6 +26,7 @@ const Page = () => {
   };
 
   return (
+    <Suspense>
     <div className="relative flex h-screen w-full items-center justify-center bg-white dark:bg-black">
       <div
         className={cn(
@@ -72,6 +75,7 @@ const Page = () => {
           </div>
         )}
       </div>
+      </Suspense>
   );
 };
 
