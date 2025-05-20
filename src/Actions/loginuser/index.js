@@ -18,6 +18,11 @@ export async function LoginUser(UserData) {
          let cookieStore = await cookies()
          cookieStore.set("token",token)           
         }
+           return {
+      success:true,
+      msg:"User created successfully!",
+      acc: AccountType
+    }
      }
      if(AccountType==="Restaurant"){
       user = await Restro.findOne({email:Email});
@@ -26,13 +31,18 @@ export async function LoginUser(UserData) {
        let cookieStore = await cookies()
        cookieStore.set("token",token)           
       }
-   }
-
-   return {
+         return {
       success:true,
       msg:"User created successfully!",
       acc: AccountType
     }
+   }
+     return {
+      success:false,
+      msg:"Cannot create user!",
+      acc: AccountType
+    }
+
      
   } catch (error) {
    return {
