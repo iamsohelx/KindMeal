@@ -16,7 +16,7 @@ const QrCodeDownload = ({ id }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const svgRef = useRef(null);
-  const qrValue = `https://localhost:3000/claimedfood?id=${id}`;
+  const qrValue = `https://kind-meal.vercel.app/claimedfood?id=${id}`;
 
   const downloadQR = () => {
     const svg = svgRef.current;
