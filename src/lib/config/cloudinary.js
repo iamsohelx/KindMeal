@@ -1,10 +1,11 @@
 // lib/cloudinary.js
 import { v2 as cloudinary } from 'cloudinary';
+import './envConfig.js'
 
 cloudinary.config({
-  cloud_name:'dpvhifzhu',
-  api_key: '838723531664556',
-  api_secret: 'yA_sDlRX2Mp5YNtmW0ov57pMhaI',
+  cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 export default cloudinary;

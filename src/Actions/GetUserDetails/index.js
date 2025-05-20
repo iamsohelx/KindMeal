@@ -9,9 +9,10 @@ export async function GetUserDetails(params) {
     await connDB()
     const cookieStore = cookies();
     const token = (await cookieStore).get('token');
-    console.log(token);
-    
+        
     const User = Jwt.verify(token.value, 'kindmeal2911');
+    
+    
     if(User.acctype == 'NGO'){
     const UserDetail = await Ngo.findOne({_id:User.userid})
       return {
