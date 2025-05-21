@@ -13,6 +13,13 @@ export async function LoginUser(UserData) {
      let user;
      if(AccountType==="NGO"){
         user = await Ngo.findOne({email:Email});
+        if(!user){
+        return {
+      success:false,
+      msg:"User does not exist!",
+      acc: AccountType
+    }
+  }
         if(user && (Password == user.password)){
          let token = Jwt.sign({email:user.email,userid:user._id,ngoname:user.name, acctype:AccountType},"kindmeal2911")
          let cookieStore = await cookies()
@@ -26,6 +33,13 @@ export async function LoginUser(UserData) {
      }
      if(AccountType==="Restaurant"){
       user = await Restro.findOne({email:Email});
+      if(!user){
+        return {
+      success:false,
+      msg:"User does not exist!",
+      acc: AccountType
+    }
+      }
       if(user && (Password == user.password)){
        let token = Jwt.sign({email:user.email,userid:user._id,restroname:user.name, acctype:AccountType},"kindmeal2911")
        let cookieStore = await cookies()
@@ -39,7 +53,7 @@ export async function LoginUser(UserData) {
    }
      return {
       success:false,
-      msg:"Cannot create user!",
+      msg:"User does not exist!",
       acc: AccountType
     }
 
