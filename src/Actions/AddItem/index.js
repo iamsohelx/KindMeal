@@ -7,11 +7,13 @@ import cloudinary from "@/lib/config/cloudinary";
 import Jwt from 'jsonwebtoken'
 import { cookies } from "next/headers";
 
-export async function AddItem(FormData) {
+export async function AddItem(FormData,ImageFile) {
+  
+  
+  const { foodname, expiry, description, address } = FormData;
 
-  const { foodname, expiry, description, address, img } = FormData;
-
-  const file = img;
+  const file = ImageFile;
+  if(file){
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
  
@@ -21,7 +23,7 @@ export async function AddItem(FormData) {
       else resolve(result);
     }).end(buffer);
   });
-
+  }
   let cookieStore = cookies();
   let token = (await cookieStore).get('token')
   
@@ -56,7 +58,7 @@ const restroUser = Jwt.verify(token.value, 'kindmeal2911');
       restroid: restroUser.userid,
       restroname: restroUser.restroname,
       date:formatted,
-      imgurl:uploadRes.secure_url
+      imgurl: file?uploadRes.secure_url:null
     })      
 
     if(res){

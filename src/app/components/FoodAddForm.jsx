@@ -25,17 +25,39 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AddItem } from "@/Actions/AddItem";
 import { io } from "socket.io-client";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
+
+const FoodFormSchema = z.object({
+    foodname: z.string().min(2,{message:"Please enter food name"}),
+    expiry: z.enum(['1','2','3','6','12','24','48']),
+    description:z.string().min(20,{message:"Enter minimum 20 characters"}),
+    address: z.string().min(2),
+})
 
 const FoodAddForm = () => {
+  const [ImageFile, setImage] = useState(null)
+  // Zod 
+  const form = useForm({
+    resolver:zodResolver(FoodFormSchema),
+    defaultValues:{
+      foodname: "",
+      expiry: "",
+      description: "",
+      address: "",
+    }
+  })
+
   // Web Socket
   const [socket, setSocket] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [Id, setId] = useState("");
   const [Restroname, setRestroName] = useState("")
-  // const [Response, setResponse] = useState({
-  //   id:"",
-  //   restroname:"",
-  // });
+ 
 
   useEffect(() => {
     fetch("/api/socket")
@@ -96,8 +118,12 @@ const FoodAddForm = () => {
   const openSubmit = () => {
     setOpenDialog(true);
   };
-  const handelSubmit = async () => {
-    let res = await AddItem(FormData);
+  const handelSubmit = async (data) => {
+    console.log("Daatata");
+    
+    console.log(data);
+    
+    let res = await AddItem(data, ImageFile);
     const { id, restroname, success } = res;
     console.log(success + id + restroname);
     
@@ -118,35 +144,44 @@ const FoodAddForm = () => {
 
   return (
     <div>
+      <Form {...form}>
+      
       <Dialog open={openDialog}>
         <DialogContent>
           <DialogTitle>Post Food Item</DialogTitle>
-          <Label htmlFor="message">Food Name</Label>
-          <Input
-            placeholder="Food Name"
-            value={FormData.foodname}
-            onChange={(e) => {
-              setFormData({
-                ...FormData,
-                foodname: e.target.value,
-              });
-            }}
-          />
-          <Label htmlFor="message">Select Expiry</Label>
-          <Select
-            onValueChange={(value) =>
-              setFormData({
-                ...FormData,
-                expiry: value,
-              })
-            }
+         <form onSubmit={form.handleSubmit(handelSubmit)}> 
+          <FormField
+           control={form.control}
+           name="foodname"
+           render={({ field })=>(
+             <FormItem>
+               <Label htmlFor="message">Food Name</Label>
+               <Input
+               placeholder="Food Name"
+               {...field}
+             />
+             <FormMessage/>
+             </FormItem>
+           )}
           >
+          </FormField>
+
+          <FormField
+           name="expiry"
+           control={form.control}
+           render={({field})=>(
+            <FormItem>
+             <Label htmlFor="message">Select Expiry</Label>
+           <Select
+            onValueChange={field.onChange}
+            defaultValues={field.value}
+          >
+            <FormControl>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Expiry Time" />
             </SelectTrigger>
+            </FormControl>
             <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Expiry</SelectLabel>
                 <SelectItem value="1">1 Hour</SelectItem>
                 <SelectItem value="2">2 Hours</SelectItem>
                 <SelectItem value="3">3 Hours</SelectItem>
@@ -154,49 +189,66 @@ const FoodAddForm = () => {
                 <SelectItem value="12">12 Hours</SelectItem>
                 <SelectItem value="24">24 Hours</SelectItem>
                 <SelectItem value="48">48 Hours</SelectItem>
-              </SelectGroup>
             </SelectContent>
           </Select>
+          <FormMessage/>
+          </FormItem>
+                
+           )}
+          >
+</FormField>
 
-          <Label htmlFor="message">Description</Label>
-          <Textarea
-            className="resize-none"
-            placeholder="Type your message here."
-            id="message"
-            value={FormData.description}
-            onChange={(e) =>
-              setFormData({
-                ...FormData,
-                description: e.target.value,
-              })
-            }
-          />
-          <Label htmlFor="message">Address</Label>
-          <Input
-            placeholder="Address"
-            value={FormData.address}
-            onChange={(e) =>
-              setFormData({
-                ...FormData,
-                address: e.target.value,
-              })
-            }
-          />
-          <Label htmlFor="picture">Picture</Label>
+<FormField
+ name="description"
+ control={form.control}
+ render={({ field })=>(
+  <FormItem>
+   <Label htmlFor="message">Description</Label>
+  <Textarea
+  {...field}
+  className="resize-none"
+  placeholder="Type your message here."
+  id="message"
+/>
+<FormMessage/>
+   </FormItem>
+
+ )}
+>
+          </FormField>
+
+          <FormField
+           control={form.control}
+           name="address"
+           render={({ field })=>(
+            <FormItem>
+              <Label htmlFor="message">Address</Label>
+              <Input
+                placeholder="Address"
+                {...field}
+              />
+            <FormMessage/>
+            </FormItem>
+           )}
+          >
+          </FormField>
+           <Label htmlFor="picture">Picture</Label>
           <Input
             id="picture"
             type="file"
             onChange={(e) =>
-              setFormData({
-                ...FormData,
-                img: e.target.files?.[0],
-              })
+              setImage(
+            
+              e.target.files?.[0],
+              )
             }
           />
-          <Button onClick={handelSubmit}>Add Food</Button>
+          <Button type={'submit'}>Add Food</Button>
+          </form>
         </DialogContent>
       </Dialog>
       <Button onClick={openSubmit}>Add Food</Button>
+      </Form>
     </div>
   );
 };
