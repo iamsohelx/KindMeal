@@ -1,56 +1,38 @@
-import Image from "next/image";
-import Grocery from "../../public/Assets/grocery.png"
+
+import { BackgroundBeamsWithCollision } from "@/components/ui/BackgroundWithBeam";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/moving-borderBtn";
+
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <>
-     <Navbar/>
-    <div className="bg-gradient-to-b from-green-50 to-green-100">
-      <section className="py-10 sm:py-16 lg:py-24">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
-            <div>
-              <h1 className="text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
-                Reduce food waste, Save
-                <div className="relative inline-flex">
-                  <span className="absolute inset-x-0 bottom-0 border-b-[30px] border-[#4ADE80]"></span>
-
-                  <h1 className="relative text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
-                    Environment.
-                  </h1>
-                </div>
-              </h1>
-
-              <p className="mt-8 text-base text-black sm:text-xl">
-              Bridge the gap between surplus food and hunger in real-time. Empower businesses and communities to reduce waste, track impact, and ensure secure pickups turning excess into opportunity for a greener planet.
-              </p>
-
-              <div className="mt-10 sm:flex sm:items-center sm:space-x-8">
-                <Link
-                  href={"/Signup"}
-                  title=""
-                  className="inline-flex items-center justify-center px-10 py-4 text-base font-semibold text-white transition-all duration-200 bg-orange-500 hover:bg-orange-600 focus:bg-orange-600"
-                  role="button"
-                >
-                  {" "}
-                  Get Started{" "}
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <Image
-                className="w-full"
-                src={Grocery}
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="relative flex h-[50rem] w-full items-center justify-center bg-gray-200 dark:bg-black">
+      <div
+        className={cn(
+          "absolute inset-0",
+          "[background-size:20px_20px]",
+          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
+        )}
+      />
+      {/* Radial gradient for the container to give a faded look */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+     <BackgroundBeamsWithCollision className={'bg-transparent'}>  
+      <div className="flex flex-col items-center">
+        <h1 className="font-bold text-7xl text-center">Help the <span className="text-primary">Environment</span><br/>By reducing food waste</h1>  
+        <p className="my-5 text-gray-700 text-center">Kindmeal is a social impact company on a mission to inspire and empower everyone to fight food waste together.</p>
+        <Link href={'/login'}>
+         <Button
+        className=" flex gap-1 bg-white font-bold dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+      >
+        Get Started <ArrowRight strokeWidth={3} className="text-primary"/>
+      </Button>
+        </Link>
+      </div>   
+    </BackgroundBeamsWithCollision>
     </div>
-    </>
+    
   );
 }

@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins, Nosifer, Anton_SC, Chewy  } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import Navbar from "./components/Navbar";
 
 const nosifer = Nosifer({
   subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
         className={`${nosifer.variable} ${chewy.variable} ${poppins.variable} ${antonSC.variable} antialiased`}
       >
         <SidebarProvider>
+          <Navbar/>
         {children}
         </SidebarProvider>
       </body>
