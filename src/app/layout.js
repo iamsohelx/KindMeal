@@ -44,7 +44,6 @@ export default function RootLayout({ children }) {
         className={`${nosifer.variable} ${chewy.variable} ${poppins.variable} ${antonSC.variable} antialiased`}
       >
         <SidebarProvider>
-          <Navbar/>
         {children}
         </SidebarProvider>
       </body>
