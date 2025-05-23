@@ -1,194 +1,34 @@
-"use client";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Loader } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import Link from "next/link";
-import { LoginUser } from "@/Actions/loginuser";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const LoginFormSchema = z.object({
-  acctype: z.enum(["Restaurant", "NGO"]),
-  email: z.string().email("Enter a Valid email"),
-  password: z.string().min(4, { message: "Enter minimum 4 Characters" }),
-});
-
-function Login() {
-  const form = useForm({
-    resolver: zodResolver(LoginFormSchema),
-    defaultValues: {
-      acctype: "",
-      email: "",
-      password: "",
-    },
-  });
-  const router = useRouter();
-  //which type of entity signing up
-  const [AccountType, setAccountType] = useState("");
-
-  //email of ngo/restaurent
-  const [Email, setEmail] = useState("");
-
-  //password
-  const [Password, setPassword] = useState("");
-
-  // Set Loader
-  const [loader, setLoader] = useState(false);
-
-  // Error Message
-  const [ErrorMsg, setErrorMsg] = useState(null);
+import Login from '@/app/components/Login'
+import React from 'react'
+import { cn } from "@/lib/utils";
+import Navbar from '@/app/components/Navbar';
 
 
-  const handleSubmit = async (data) => {
-    setLoader(true);
-    const UserData = {
-      AccountType: data.acctype,
-      Email: data.email,
-      Password: data.password,
-    };
-    let result = await LoginUser(UserData);
-    if(result?.success == false){
-       setErrorMsg(result?.acc)
-    }
-    if (result?.success && result?.acc == "NGO") {
-      router.push("/ngo-dashboard");
-    } else if (result?.success && result?.acc == "Restaurant") {
-      router.push("/restro-dashboard");
-    } else {
-      console.log("Error Occure");
-    }
-    setLoader(false);
-  };
+const Page = () => {
   return (
-    <Form
-      {...form}
-      className="flex  h-screen items-center bg-green-50  w-screen  overflow-x-clip font-poppins"
-    >
-      {/* left side section */}
-      <div className="hidden h-screen md:flex w-2/5 bg-primary items-center">
-        <div className="text-4xl font-anton text-orange text-center">
-          Hey Welcome to KindMeal Community
-        </div>
-      </div>
-
-      {/* right side part and main form */}
-      <div className="mx-10 rounded-sm shadow-sm w-full p-8  md:w-4/5 lg:3/5 bg-white/90 ">
-        {/* Heading */}
-        <h2 className="text-2xl text-black/80 font-semibold mb-6 text-center ">
-          Login
-        </h2>
-
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-2"
-        >
-          <div className="flex sm:gap-5 sm:flex-row flex-col gap-2">
-            {/* ngo or restorent */}
-            <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2">
-              <FormField
-                control={form.control}
-                name="acctype"
-                render={({ field }) => (
-                  <FormItem>
-                    <Label className={'text-gray-600'}>Who you are?</Label>
-                    <Select
-                      onValueChange={field.onChange} defaultValue={field.value}
-                    >
-                      <SelectTrigger className="w-full border-black/20">
-                        <SelectValue placeholder="Sign up As a" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Restaurant" >Restaurant</SelectItem>
-                        <SelectItem value="NGO">NGO</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage/>
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-
-          {/* row2 */}
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <Label>Email</Label>
-                <div className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full">
-                  <div>
-                    <Input
-                      {...field}
-                      placeholder="abc@gmail.com"
-                      className="border-black/20"
-                    />
-                    <FormMessage />
-                  </div>
-                </div>
-              </FormItem>
-            )}
-            className="flex sm:gap-5 sm:flex-row flex-col gap-2"
-          ></FormField>
-          {/* Password  */}
-          <FormField
-            className="grid lg:w-[100%] gap-1.5 sm:w-1/2 w-full"
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <Label>Password</Label>
-                <div>
-                  <Input
-                  {...field}
-                    placeholder="password"
-                    className="border-black/20 outline-black/70"
-                  />
-                  <FormMessage />
-                </div>
-              </FormItem>
-            )}
-          ></FormField>
-
-          <Button type="submit" size="lg" className="cursor-pointer">
-            {loader ? (
-              <Loader strokeWidth={3} size={100} className="animate-spin" />
-            ) : (
-              "Login"
-            )}
-          </Button>
-          <p className={`text-red-500 ${ErrorMsg?'':'invisible'}`}>{ErrorMsg} Does Not Exist</p>
-        </form>
-
-        <div className="w-full py-3 flex justify-center ">
-          <p className="text-black/70 text-center">
-            Dont have an Account?
-            <Link href={"/Signup"} className="text-blue-900 font-semibold">
-              Sign Up
-            </Link>
-          </p>
-        </div>
-      </div>
-    </Form>
-  );
+    <>
+    <Navbar/>
+    <div>
+    <div>
+       <div className="relative flex h-screen w-screen items-center justify-center bg-gray-200 dark:bg-black">
+      <div
+        className={cn(
+          "absolute inset-0",
+          "[background-size:20px_20px]",
+          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
+        )}
+      />
+      {/* Radial gradient for the container to give a faded look */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+           <div className='w-[50%] flex justify-center relative'>
+             <Login/>
+           </div>
+    </div>
+    </div>
+    </div>
+</>
+  )
 }
 
-export default Login;
+export default Page

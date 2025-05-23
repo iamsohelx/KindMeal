@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/moving-borderBtn";
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-      <div className="relative flex h-[50rem] w-full items-center justify-center bg-gray-200 dark:bg-black">
+    <>
+    <Navbar/>
+      <div className="relative flex h-screen w-full items-center justify-center bg-gray-200 dark:bg-black">
       <div
         className={cn(
           "absolute inset-0",
@@ -33,6 +36,7 @@ export default function Home() {
       </div>   
     </BackgroundBeamsWithCollision>
     </div>
+    </>
     
   );
 }
