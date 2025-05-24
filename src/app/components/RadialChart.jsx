@@ -89,14 +89,14 @@ export function RadialChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-xl font-bold"
+                          className="fill-foreground text-2xl md:text-xl font-bold"
                         >
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 16}
-                          className="fill-muted-foreground text-xs"
+                          className="fill-muted-foreground text-xl md:text-xs"
                         >
                           Food
                         </tspan>
