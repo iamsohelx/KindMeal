@@ -157,7 +157,7 @@ useEffect(() => {
 
   return (
 
-      <div className=" rounded-2xl shadow-sm w-full p-8 pb-2 bg-white/90 ">
+      <div className="my-6 rounded-2xl shadow-sm w-full p-8 pb-2 bg-white/90 ">
          
          {/* Heading */}
         <h2 className="text-2xl text-gray-700 font-bold mb-6 text-center ">
