@@ -21,7 +21,7 @@ const Navbar = () => {
     
         {/* Right area */}
         <div className="flex-1 flex justify-end items-center gap-4">
-          <Button className="text-sm py-1 font-bold px-5 rounded-md">
+          <Button className=" text-sm font-bold px-5 rounded-md">
             Login <LogIn strokeWidth={3}/>
           </Button>
           <Separator orientation="vertical" className="min-h-6 max-sm:hidden" />

@@ -23,8 +23,8 @@ export default function Home() {
       {/* Radial gradient for the container to give a faded look */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
      <BackgroundBeamsWithCollision className={'bg-transparent'}>  
-      <div className="flex flex-col items-center">
-        <h1 className="font-bold text-7xl text-center">Help the <span className="text-primary">Environment</span><br/>By reducing food waste</h1>  
+      <div className=" p-2 flex flex-col items-center">
+        <h1 className="text-5xl font-bold md:text-7xl text-center">Help the <span className="text-primary">Environment</span><br/>By reducing food waste</h1>  
         <p className="my-5 text-gray-700 text-center">Kindmeal is a social impact company on a mission to inspire and empower everyone to fight food waste together.</p>
         <Link href={'/login'}>
          <Button
