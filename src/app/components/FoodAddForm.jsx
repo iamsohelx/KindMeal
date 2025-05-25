@@ -35,7 +35,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const FoodFormSchema = z.object({
     foodname: z.string().min(2,{message:"Please enter food name"}),
     expiry: z.enum(['1','2','3','6','12','24','48']),
-    description:z.string().min(20,{message:"Enter minimum 20 characters"}),
+    description:z.string().min(100,{message:"Enter minimum 100 characters"}),
     address: z.string().min(2),
 })
 
@@ -148,14 +148,14 @@ const FoodAddForm = () => {
       
       <Dialog open={openDialog}>
         <DialogContent>
-          <DialogTitle>Post Food Item</DialogTitle>
-         <form onSubmit={form.handleSubmit(handelSubmit)}> 
+          <DialogTitle className={'text-2xl text-gray-700 font-bold'}>Post Food Item</DialogTitle>
+         <form onSubmit={form.handleSubmit(handelSubmit)} className="flex flex-col gap-3"> 
           <FormField
            control={form.control}
            name="foodname"
            render={({ field })=>(
              <FormItem>
-               <Label htmlFor="message">Food Name</Label>
+               <Label htmlFor="message" className={'font-bold text-gray-600'}>Food Name</Label>
                <Input
                placeholder="Food Name"
                {...field}
@@ -171,7 +171,7 @@ const FoodAddForm = () => {
            control={form.control}
            render={({field})=>(
             <FormItem>
-             <Label htmlFor="message">Select Expiry</Label>
+             <Label htmlFor="message" className={'font-bold text-gray-600'}>Select Expiry</Label>
            <Select
             onValueChange={field.onChange}
             defaultValues={field.value}
@@ -203,7 +203,7 @@ const FoodAddForm = () => {
  control={form.control}
  render={({ field })=>(
   <FormItem>
-   <Label htmlFor="message">Description</Label>
+   <Label htmlFor="message" className={'font-bold text-gray-600'}>Description</Label>
   <Textarea
   {...field}
   className="resize-none"
@@ -222,7 +222,7 @@ const FoodAddForm = () => {
            name="address"
            render={({ field })=>(
             <FormItem>
-              <Label htmlFor="message">Address</Label>
+              <Label htmlFor="message" className={'font-bold text-gray-600'}>Address</Label>
               <Input
                 placeholder="Address"
                 {...field}
@@ -232,8 +232,9 @@ const FoodAddForm = () => {
            )}
           >
           </FormField>
-           <Label htmlFor="picture">Picture</Label>
+           <Label htmlFor="picture" className={'font-bold text-gray-600'}>Picture</Label>
           <Input
+          className={'border-dashed border-2'}
             id="picture"
             type="file"
             onChange={(e) =>
@@ -243,7 +244,7 @@ const FoodAddForm = () => {
               )
             }
           />
-          <Button type={'submit'}>Add Food</Button>
+          <Button type={'submit'} className={'font-bold'}>Add Food</Button>
           </form>
         </DialogContent>
       </Dialog>

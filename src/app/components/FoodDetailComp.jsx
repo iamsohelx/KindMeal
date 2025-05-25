@@ -31,16 +31,16 @@ export const FoodDetailComp = () => {
     <div className="flex">
       <SidebarCopm />
 
-      <div className="m-auto pr-10">
+      <div className="m-auto pr-5 md:pr-10">
         {FoodData &&
           FoodData.map((food, index) => (
             <section
             key={index}
-            className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased"
+            className="py-8 px-2 overflow-hidden bg-white md:py-16 dark:bg-gray-900 antialiased"
             >
               <div className="max-w-full 2xl:px-0">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                  <div className="shrink-0 w-lg lg:max-w-lg mx-auto">
+                  <div className="shrink-0 w-full md:w-lg lg:max-w-lg mx-auto">
                     <img
                       className="w-full rounded-sm dark"
                       src={food.imgurl}

@@ -23,7 +23,7 @@ export function Button({
   return (
     <Component
       className={cn(
-        "relative rounded-md  w-40 overflow-hidden bg-transparent p-[1px] text-xl",
+        "relative rounded-md w-full  md:w-50 overflow-hidden bg-transparent p-[1px] text-xl",
         containerClassName
       )}
       style={{

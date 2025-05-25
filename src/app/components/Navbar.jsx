@@ -1,10 +1,7 @@
 import React from 'react'
-import Logo from "../../../public/Assets/logo.png";
-import Image from "next/image";
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { LogIn } from 'lucide-react';
+import { BirdIcon } from 'lucide-react';
 
 
 const Navbar = () => {
@@ -21,9 +18,10 @@ const Navbar = () => {
     
         {/* Right area */}
         <div className="flex-1 flex justify-end items-center gap-4">
-          <Button className=" text-sm font-bold px-5 rounded-md">
+          {/* <Button href={'/login'} className="text-xs md:text-sm font-bold px-5 rounded-md">
             Login <LogIn strokeWidth={3}/>
-          </Button>
+          </Button> */}
+          <BirdIcon strokeWidth={2} className=' text-primary'/>
           <Separator orientation="vertical" className="min-h-6 max-sm:hidden" />
         </div>
       </div>

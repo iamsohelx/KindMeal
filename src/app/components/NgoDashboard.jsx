@@ -41,17 +41,18 @@ const fetchFoodData = async ()=>{
 
   return (
 
-    <div className='flex w-screen'>
+    <div className='flex h-screen w-screen'>
       <SidebarCopm/>
 
-      <div className='w-full'>
+      <div className='w-full md:flex md:justify-center'>
+      <div className='md:w-[90%]'>
         {FoodList?null:<h1 className='text-center font-bold text-2xl text-gray-600 mt-10'> No Food Available </h1>}
       { FoodList && FoodList.map((food, index)=>(
 
       
-     <Card key={index} className="max-w-5xl max-h-52 mx-auto my-5 bg-white rounded-2xl shadow-lg overflow-hidden flex items-center justify-center flex-col md:flex-row">
+     <Card key={index} className="py-0 mx-7 h-[450px] md:h-60 md:mx-20 my-5 bg-white rounded-2xl shadow-lg overflow-hidden flex items-center md:justify-center flex-col md:flex-row">
       {/* Image Section */}
-      <div className="md:w-1/2 py-1">
+      <div className="sm:h-[200px] sm:w-full md:h-full md:w-1/2">
         <img
           src={food.imgurl}
           alt="Spaghetti"
@@ -59,7 +60,7 @@ const fetchFoodData = async ()=>{
         />
       </div>
       {/* Content Section */}
-      <div className="md:w-1/2 p-6 flex flex-col justify-between">
+      <div className="md:w-1/2 px-4 md:p-6 w-full flex flex-col justify-between">
         <div>
           <h3 className="text-xl font-bold text-gray-800">{food.foodname}</h3>
           <h4 className="text-sm font-semibold text-gray-500">{food.restroname}</h4>
@@ -80,6 +81,7 @@ const fetchFoodData = async ()=>{
     </Card>
     ))
     }
+    </div>
     </div>
     </div>
   

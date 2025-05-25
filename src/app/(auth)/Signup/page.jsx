@@ -22,7 +22,7 @@ const Page = () => {
       />
       {/* Radial gradient for the container to give a faded look */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
-           <div className='w-[85%] md:w-[60%] mt-20 flex justify-center relative'>
+           <div className='w-[85%] md:w-[60%] pt-[100px] flex justify-center relative'>
              <Signup/>
            </div>
     </div>
