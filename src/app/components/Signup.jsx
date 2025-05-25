@@ -161,7 +161,7 @@ useEffect(() => {
          
          {/* Heading */}
         <h2 className="text-2xl text-gray-700 font-bold mb-6 text-center ">
-          Resistration
+          Registration
         </h2>
 
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
