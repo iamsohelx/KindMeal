@@ -21,14 +21,14 @@ const RestroDashboard = () => {
     <div className="flex w-screen h-screen relative z-50">
       <SidebarCopm />
       <div className="flex flex-col md:flex-row w-full h-full overflow-hidden">
-        <div className="w-full md:w-[65%] flex flex-col justify-between p-5 h-full overflow-hidden">
-          <div className=" flex justify-between border-2 bg-white rounded-2xl overflow-hidden p-3 h-[20%]">
+        <div className="w-full md:w-[65%] flex flex-col justify-between py-5 pr-5 md:p-5 h-full overflow-hidden">
+          <div className=" flex justify-between border-2 bg-white rounded-2xl overflow-hidden p-3 h-[24%] md:h-[20%]">
             <div className="hidden md:inline w-full p-1">
               Dashboard
               <DashboardUserDetails />
             </div>
             <Separator className={'hidden md:inline'} orientation="vertical" />
-            <div className="w-full p-1 gap-7 flex items-center justify-center">
+            <div className="w-full px-3 p-1 gap-7 flex items-center justify-center">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -54,8 +54,8 @@ const RestroDashboard = () => {
             <BarGraph />
           </div>
         </div>
-        <div className="w-full md:w-[35%] p-5 bg-transparent overflow-hidden">
-          <div className=" w-full border-2 bg-white rounded-2xl p-5 h-full overflow-scroll no-scrollbar">
+        <div className="w-full md:w-[35%] pr-5 pb-2.5 md:pb-5 md:p-5 bg-transparent overflow-hidden">
+          <div className=" w-full border-2 bg-white rounded-2xl p-2 md:p-5 h-full overflow-scroll no-scrollbar">
             <MyPostedFood />
           </div>
         </div>
