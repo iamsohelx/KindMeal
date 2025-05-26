@@ -45,7 +45,7 @@ const fetchFoodData = async ()=>{
       <SidebarCopm/>
 
       <div className='w-full md:flex md:justify-center'>
-      <div className='md:w-[90%]'>
+      <div className='md:w-[90%] py-5'>
         {FoodList?null:<h1 className='text-center font-bold text-2xl text-gray-600 mt-10'> No Food Available </h1>}
       { FoodList && FoodList.map((food, index)=>(
 
