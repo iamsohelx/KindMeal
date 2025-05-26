@@ -74,7 +74,7 @@ function Login() {
       {...form}
       className="flex h-full items-center bg-green-50  w-full  overflow-x-clip font-poppins"
     >
-      <div className="mx-10 rounded-2xl shadow-sm w-full p-8  md:w-4/5 lg:3/5 bg-white/90 ">
+      <div className="mx-7 rounded-2xl shadow-sm w-full p-8  md:w-4/5 lg:3/5 bg-white/90 ">
         {/* Heading */}
         <h2 className="text-2xl text-gray-700 font-bold mb-6 text-center ">
           Login
