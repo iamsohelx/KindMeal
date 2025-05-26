@@ -44,7 +44,7 @@ const MyPostedFood = () => {
               key={idx}
               className="flex w-full h-fit border-2 p-2 rounded-sm mb-2"
             >
-              <Avatar className={"h-25 w-25 rounded-lg"}>
+              <Avatar className={"h-28 w-28 md:h-25 md:w-25 rounded-lg"}>
                 <img src={food.imgurl} alt="" />
                 <AvatarFallback className="rounded-lg">Kindmeal</AvatarFallback>
               </Avatar>
