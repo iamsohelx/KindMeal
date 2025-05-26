@@ -8,16 +8,17 @@ import Jwt from 'jsonwebtoken'
 import { cookies } from "next/headers";
 
 export async function AddItem(FormData,ImageFile) {
-  
-  
+    
   const { foodname, expiry, description, address } = FormData;
 
-  const file = ImageFile;
+  const file = await ImageFile;
+  let uploadRes;
   if(file){
+ 
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
  
-  const uploadRes = await new Promise((resolve, reject) => {
+   uploadRes = await new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
       if (err) reject(err);
       else resolve(result);

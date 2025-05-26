@@ -28,19 +28,31 @@ const QrCodeDownload = ({ id }) => {
     const ctx = canvas.getContext("2d");
 
     img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
+      const padding = 30;
+
+      // Set canvas size larger than image to include padding
+      canvas.width = img.width + padding * 2;
+      canvas.height = img.height + padding * 2;
+
+      // Fill background with white
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw image with padding offset
+      ctx.drawImage(img, padding, padding);
+
+      // Generate and download PNG
       const pngUrl = canvas.toDataURL();
       const link = document.createElement("a");
       link.href = pngUrl;
       link.download = "qr-code.png";
       link.click();
-      URL.revokeObjectURL(url);
+
+      URL.revokeObjectURL(url); // Revoke blob if applicable
     };
 
     img.src = url;
-    handelSubmit()
+    handelSubmit();
   };
 
   const handelSubmit = async () => {
@@ -55,8 +67,9 @@ const QrCodeDownload = ({ id }) => {
           <div className="flex justify-center m-5 flex-col items-center gap-5">
             <QRCodeSVG value={qrValue} size={200} ref={svgRef} />
             <br />
-                <Button className={'w-full'} onClick={downloadQR}>Download QR</Button>
-
+            <Button className={"w-full"} onClick={downloadQR}>
+              Download QR
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

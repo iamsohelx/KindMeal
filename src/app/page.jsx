@@ -26,7 +26,7 @@ export default function Home() {
       <div className=" p-2 flex flex-col items-center">
         <h1 className="text-5xl font-bold md:text-7xl text-center">Help the <span className="text-primary">Environment</span><br/>By reducing food waste</h1>  
         <p className="my-5 text-gray-700 text-center">Kindmeal is a social impact company on a mission to inspire and empower everyone to fight food waste together.</p>
-        <Link className="w-full md:w-50" href={'/login'}>
+        <Link className="w-[90%] md:w-50" href={'/login'}>
          <Button
         className=" flex gap-1 bg-white font-bold dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
       >
