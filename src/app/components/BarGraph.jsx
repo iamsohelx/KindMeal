@@ -13,7 +13,7 @@ import { GetMyFoodItem } from "@/Actions/GetMyFoodItem";
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "Food",
     color: "var(--chart-1)",
   }
 };
@@ -39,7 +39,7 @@ export function BarGraph() {
       { month: "March", desktop: res?.monthFrequency.march || 0 , },
       { month: "April", desktop: res?.monthFrequency.april || 0, },
       { month: "May", desktop: res?.monthFrequency.may || 0, },
-      { month: "June", desktop: res?.monthFrequency.june || 0, },
+      { month: "June", desktop: res?.monthFrequency.jun || 0, },
       { month: "July", desktop: res?.monthFrequency.july || 0, },
       { month: "August", desktop: res?.monthFrequency.aug || 0, },
       { month: "September", desktop: res?.monthFrequency.sept || 0 , },
