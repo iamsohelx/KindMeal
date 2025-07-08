@@ -25,39 +25,42 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AddItem } from "@/Actions/AddItem";
 import { io } from "socket.io-client";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
-
 const FoodFormSchema = z.object({
-    foodname: z.string().min(2,{message:"Please enter food name"}),
-    expiry: z.enum(['1','2','3','6','12','24','48']),
-    description:z.string().min(100,{message:"Enter minimum 100 characters"}),
-    address: z.string().min(2),
-})
+  foodname: z.string().min(2, { message: "Please enter food name" }),
+  expiry: z.enum(["1", "2", "3", "6", "12", "24", "48"]),
+  description: z.string().min(100, { message: "Enter minimum 100 characters" }),
+  address: z.string().min(2),
+});
 
 const FoodAddForm = () => {
-  const [ImageFile, setImage] = useState(null)
-  // Zod 
+  const [ImageFile, setImage] = useState(null);
+  // Zod
   const form = useForm({
-    resolver:zodResolver(FoodFormSchema),
-    defaultValues:{
+    resolver: zodResolver(FoodFormSchema),
+    defaultValues: {
       foodname: "",
       expiry: "",
       description: "",
       address: "",
-    }
-  })
+    },
+  });
 
   // Web Socket
   const [socket, setSocket] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [Id, setId] = useState("");
-  const [Restroname, setRestroName] = useState("")
- 
+  const [Restroname, setRestroName] = useState("");
 
   useEffect(() => {
     fetch("/api/socket")
@@ -97,12 +100,11 @@ const FoodAddForm = () => {
         restroname: Restroname,
         date: new Date(),
       };
-        
+
       socket.emit("Notification", newNotification);
       console.log("Notificaton");
 
       console.log(newNotification);
-
     }
   };
   // For Dialog Open/Close
@@ -120,135 +122,147 @@ const FoodAddForm = () => {
   };
   const handelSubmit = async (data) => {
     console.log("Daatata");
-    
+
     console.log(data);
-    
+
     let res = await AddItem(data, ImageFile);
     const { id, restroname, success } = res;
     console.log(success + id + restroname);
-    
+
     if (success) {
       setId(id);
-      setRestroName(restroname)
+      setRestroName(restroname);
       console.log(Id + "Id wala");
-      
-      if (Id && 1){
+
+      if (Id && 1) {
         console.log("Response");
 
-
-      sendNotification();
+        sendNotification();
+      }
+      openDialog ? setOpenDialog(false) : setOpenDialog(true);
     }
-    openDialog ? setOpenDialog(false) : setOpenDialog(true);
   };
-}
 
   return (
     <div>
       <Form {...form}>
-      
-      <Dialog open={openDialog}>
-        <DialogContent>
-          <DialogTitle className={'text-2xl text-gray-700 font-bold'}>Post Food Item</DialogTitle>
-         <form onSubmit={form.handleSubmit(handelSubmit)} className="flex flex-col gap-3"> 
-          <FormField
-           control={form.control}
-           name="foodname"
-           render={({ field })=>(
-             <FormItem>
-               <Label htmlFor="message" className={'font-bold text-gray-600'}>Food Name</Label>
-               <Input
-               placeholder="Food Name"
-               {...field}
-             />
-             <FormMessage/>
-             </FormItem>
-           )}
-          >
-          </FormField>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className={"font-bold px-5"}>Add Food</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle className={"text-2xl text-gray-700 font-bold"}>
+              Post Food Item
+            </DialogTitle>
+            <form
+              onSubmit={form.handleSubmit(handelSubmit)}
+              className="flex flex-col gap-3"
+            >
+              <FormField
+                control={form.control}
+                name="foodname"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label
+                      htmlFor="message"
+                      className={"font-bold text-gray-600"}
+                    >
+                      Food Name
+                    </Label>
+                    <Input placeholder="Food Name" {...field} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
 
-          <FormField
-           name="expiry"
-           control={form.control}
-           render={({field})=>(
-            <FormItem>
-             <Label htmlFor="message" className={'font-bold text-gray-600'}>Select Expiry</Label>
-           <Select
-            onValueChange={field.onChange}
-            defaultValues={field.value}
-          >
-            <FormControl>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select Expiry Time" />
-            </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-                <SelectItem value="1">1 Hour</SelectItem>
-                <SelectItem value="2">2 Hours</SelectItem>
-                <SelectItem value="3">3 Hours</SelectItem>
-                <SelectItem value="6">6 Hours</SelectItem>
-                <SelectItem value="12">12 Hours</SelectItem>
-                <SelectItem value="24">24 Hours</SelectItem>
-                <SelectItem value="48">48 Hours</SelectItem>
-            </SelectContent>
-          </Select>
-          <FormMessage/>
-          </FormItem>
-                
-           )}
-          >
-</FormField>
+              <FormField
+                name="expiry"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <Label
+                      htmlFor="message"
+                      className={"font-bold text-gray-600"}
+                    >
+                      Select Expiry
+                    </Label>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValues={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select Expiry Time" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">1 Hour</SelectItem>
+                        <SelectItem value="2">2 Hours</SelectItem>
+                        <SelectItem value="3">3 Hours</SelectItem>
+                        <SelectItem value="6">6 Hours</SelectItem>
+                        <SelectItem value="12">12 Hours</SelectItem>
+                        <SelectItem value="24">24 Hours</SelectItem>
+                        <SelectItem value="48">48 Hours</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
 
-<FormField
- name="description"
- control={form.control}
- render={({ field })=>(
-  <FormItem>
-   <Label htmlFor="message" className={'font-bold text-gray-600'}>Description</Label>
-  <Textarea
-  {...field}
-  className="resize-none"
-  placeholder="Type your message here."
-  id="message"
-/>
-<FormMessage/>
-   </FormItem>
+              <FormField
+                name="description"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <Label
+                      htmlFor="message"
+                      className={"font-bold text-gray-600"}
+                    >
+                      Description
+                    </Label>
+                    <Textarea
+                      {...field}
+                      className="resize-none"
+                      placeholder="Type your message here."
+                      id="message"
+                    />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
 
- )}
->
-          </FormField>
-
-          <FormField
-           control={form.control}
-           name="address"
-           render={({ field })=>(
-            <FormItem>
-              <Label htmlFor="message" className={'font-bold text-gray-600'}>Address</Label>
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <Label
+                      htmlFor="message"
+                      className={"font-bold text-gray-600"}
+                    >
+                      Address
+                    </Label>
+                    <Input placeholder="Address" {...field} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+              <Label htmlFor="picture" className={"font-bold text-gray-600"}>
+                Picture
+              </Label>
               <Input
-                placeholder="Address"
-                {...field}
+                className={"border-dashed border-2"}
+                id="picture"
+                type="file"
+                onChange={(e) => setImage(e.target.files?.[0])}
               />
-            <FormMessage/>
-            </FormItem>
-           )}
-          >
-          </FormField>
-           <Label htmlFor="picture" className={'font-bold text-gray-600'}>Picture</Label>
-          <Input
-          className={'border-dashed border-2'}
-            id="picture"
-            type="file"
-            onChange={(e) =>
-              setImage(
-            
-              e.target.files?.[0],
-              )
-            }
-          />
-          <Button type={'submit'} className={'font-bold'}>Add Food</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
-      <Button onClick={openSubmit}>Add Food</Button>
+              <Button type={"submit"} className={"font-bold"}>
+                Add Food
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </Form>
     </div>
   );
