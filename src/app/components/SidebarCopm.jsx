@@ -46,16 +46,6 @@ const items = [
     icon: Home,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
     title: "Settings",
     url: "#",
     icon: Settings,

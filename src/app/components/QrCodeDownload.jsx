@@ -61,7 +61,10 @@ const QrCodeDownload = ({ id }) => {
 
   return (
     <div>
-      <Dialog open={openDialog}>
+      <Dialog>
+         <DialogTrigger asChild>
+          <Button className={"px-5 font-bold"}>Grab Now</Button>
+        </DialogTrigger>
         <DialogContent>
           <DialogTitle>Download QR</DialogTitle>
           <div className="flex justify-center m-5 flex-col items-center gap-5">
@@ -73,7 +76,6 @@ const QrCodeDownload = ({ id }) => {
           </div>
         </DialogContent>
       </Dialog>
-      <Button onClick={handelSubmit}>Grab Now</Button>
     </div>
   );
 };
