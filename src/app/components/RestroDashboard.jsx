@@ -15,6 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import DashboardUserDetails from "./DashboardUserDetails";
 import { RadialChart } from "./RadialChart";
 import { RefreshCw } from "lucide-react";
+import { TempBar } from "./tempBar";
 
 const RestroDashboard = () => {
   return (
@@ -51,7 +52,8 @@ const RestroDashboard = () => {
             </div>
           </div>
           <div className=" bg-white border-2 p-2 flex justify-center items-center rounded-2xl overflow-scroll no-scrollbar md:overflow-hidden h-[75%]">
-            <BarGraph />
+            {/* <BarGraph /> */}
+          <TempBar/>
           </div>
         </div>
         <div className="w-full md:w-[35%] pr-5 pb-2.5 md:pb-5 md:p-5 bg-transparent overflow-hidden">
