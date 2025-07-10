@@ -23,7 +23,7 @@ export async function LoginUser(UserData) {
         if(user && (Password == user.password)){
          let token = Jwt.sign({email:user.email,userid:user._id,ngoname:user.name, acctype:AccountType},"kindmeal2911")
          let cookieStore = await cookies()
-         cookieStore.set("token",token)           
+         cookieStore.set("token",token, {maxAge: 60 * 60 * 24 * 30});           
         }
            return {
       success:true,
@@ -43,7 +43,7 @@ export async function LoginUser(UserData) {
       if(user && (Password == user.password)){
        let token = Jwt.sign({email:user.email,userid:user._id,restroname:user.name, acctype:AccountType},"kindmeal2911")
        let cookieStore = await cookies()
-       cookieStore.set("token",token)           
+       cookieStore.set("token",token,  {maxAge: 60 * 60 * 24 * 30})           
       }
          return {
       success:true,
