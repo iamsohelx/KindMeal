@@ -126,8 +126,9 @@ export const FoodDetailComp = () => {
                       </div>
                     </div>
 
-                    <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+                    <div className=" flex justify-between mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
                       <QrCodeDownload id={food._id}/>
+                      <p><strong className="text-red-500">Expires in {food.expiry}hours</strong></p>
                     </div>
 
                     <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
