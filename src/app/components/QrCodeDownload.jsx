@@ -63,14 +63,14 @@ const QrCodeDownload = ({ id }) => {
     <div>
       <Dialog>
          <DialogTrigger asChild>
-          <Button className={"px-5 font-bold"}>Grab Now</Button>
+          <Button className={"px-5 font-bold font-poppins"}>Grab Now</Button>
         </DialogTrigger>
         <DialogContent>
-          <DialogTitle>Download QR</DialogTitle>
+          <DialogTitle className={"font-poppins"}>Download QR</DialogTitle>
           <div className="flex justify-center m-5 flex-col items-center gap-5">
             <QRCodeSVG value={qrValue} size={200} ref={svgRef} />
             <br />
-            <Button className={"w-full"} onClick={downloadQR}>
+            <Button className={"w-full font-poppins font-bold"} onClick={downloadQR}>
               Download QR
             </Button>
           </div>

@@ -20,7 +20,7 @@ const HowItWorks = () => {
       />
       {/* Radial gradient for the container to give a faded look */}
       {/* <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div> */}
-           <div className='w-full md:w-[50%] flex justify-center relative flex-col md:mt-15'>
+           <div className='w-full md:w-[50%] flex justify-center relative font-poppins flex-col md:mt-15'>
              <CometCard className='mt-16 mx-2'>
               <div className='h-52 bg-white flex flex-col justify-center rounded-2xl p-2 md:p-4'>
                <h3 className='text-gray-600 font-bold font-poppins text-sm md:text-[16px]'><span className='text-primary font-bold'>Step1</span> : Sign Up or Login 🙎‍♂️</h3>

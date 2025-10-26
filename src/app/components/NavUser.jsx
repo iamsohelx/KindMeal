@@ -4,9 +4,7 @@ import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
+  LogOut
 } from "lucide-react"
 
 import {
@@ -56,7 +54,7 @@ export function NavUser({user}) {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={"/avatars/shadcn.jpg"} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">👤</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
@@ -75,7 +73,7 @@ export function NavUser({user}) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={'/avatars/shadcn.jpg'} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">👤</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
@@ -83,16 +81,6 @@ export function NavUser({user}) {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logoutUser}>
               <LogOut />

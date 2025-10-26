@@ -44,7 +44,7 @@ const fetchFoodData = async ()=>{
     <div className='flex h-screen w-screen'>
       <SidebarCopm/>
 
-      <div className='w-full md:flex md:justify-center'>
+      <div className='w-full md:flex md:justify-center font-poppins'>
       <div className='md:w-[90%] py-5'>
         {FoodList?null:<h1 className='text-center font-bold text-2xl text-gray-600 mt-10'> No Food Available </h1>}
       { FoodList && FoodList.map((food, index)=>(
@@ -74,8 +74,8 @@ const fetchFoodData = async ()=>{
           <p className="text-xs text-gray-600">{food.address}</p>
         </div>
 
-        <Button onClick={()=> router.push(`/fooddetails?id=${food._id}`)} className="mt-2 text-white py-2 px-4 rounded-md hover:bg-green-700 transition">
-          Grab Now
+        <Button onClick={()=> router.push(`/fooddetails?id=${food._id}`)} className="mt-2 text-white font-poppins font-bold py-2 px-4 rounded-md hover:bg-green-700 transition">
+          More
         </Button>
       </div>
     </Card>

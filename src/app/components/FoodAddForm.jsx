@@ -121,7 +121,6 @@ const FoodAddForm = () => {
     setOpenDialog(true);
   };
   const handelSubmit = async (data) => {
-    console.log("Daatata");
 
     console.log(data);
 
@@ -132,7 +131,7 @@ const FoodAddForm = () => {
     if (success) {
       setId(id);
       setRestroName(restroname);
-      console.log(Id + "Id wala");
+      window.location.reload()
 
       if (Id && 1) {
         console.log("Response");
