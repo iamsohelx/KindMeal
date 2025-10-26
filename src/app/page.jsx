@@ -33,7 +33,7 @@ export default function Home() {
         Get Started <ArrowRight strokeWidth={3} className="text-primary"/>
       </Button>
         </Link>
-        <Link href={"/howitworks"} className="bg-transparent border-primary text-primary border-2 font-bold font-poppins rounded-sm text-sm py-3 mt-2 md:px-12">How it works?</Link>
+        <Link href={"/howitworks"} className="bg-transparent flex justify-center items-center border-primary text-primary border-2 font-bold font-poppins rounded-sm text-sm py-3 mt-2 w-[88%] md:w-49">How it works?</Link>
       </div>   
     </BackgroundBeamsWithCollision>
     </div>
