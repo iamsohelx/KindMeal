@@ -38,7 +38,7 @@ const MyPostedFood = () => {
   return (
     <ScrollArea>
       {!FoodData
-        ? "No Food Item Posted"
+        ? <h1>No Food Item Posted</h1>
         : FoodData.map((food, idx) => (
             <div
               key={idx}

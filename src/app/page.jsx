@@ -25,14 +25,15 @@ export default function Home() {
      <BackgroundBeamsWithCollision className={'bg-transparent'}>  
       <div className=" p-2 flex flex-col items-center">
         <h1 className="text-5xl font-bold md:text-7xl text-center">Help the <span className="text-primary">Environment</span><br/>By reducing food waste</h1>  
-        <p className="my-5 text-gray-700 text-center">Kindmeal is a social impact company on a mission to inspire and empower everyone to fight food waste together.</p>
+        <p className="my-5 text-gray-700 text-center font-poppins">Kindmeal is a social impact company on a mission to inspire and empower everyone to fight food waste together.</p>
         <Link className="w-[90%] md:w-50" href={'/login'}>
          <Button
-        className=" flex gap-1 bg-white font-bold dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+        className="font-poppins flex gap-1 bg-white font-bold dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 cursor-pointer"
       >
         Get Started <ArrowRight strokeWidth={3} className="text-primary"/>
       </Button>
         </Link>
+        <Link href={"/howitworks"} className="bg-transparent border-primary text-primary border-2 font-bold font-poppins rounded-sm text-sm py-3 mt-2 md:px-12">How it works?</Link>
       </div>   
     </BackgroundBeamsWithCollision>
     </div>
