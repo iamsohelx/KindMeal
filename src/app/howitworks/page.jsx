@@ -21,7 +21,7 @@ const HowItWorks = () => {
       {/* Radial gradient for the container to give a faded look */}
       {/* <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div> */}
            <div className='w-full md:w-[50%] flex justify-center relative font-poppins flex-col md:mt-15'>
-             <CometCard className='mt-16 mx-2'>
+             <CometCard className='mt-16 mx-4'>
               <div className='h-52 bg-white flex flex-col justify-center rounded-2xl p-2 md:p-4'>
                <h3 className='text-gray-600 font-bold font-poppins text-sm md:text-[16px]'><span className='text-primary font-bold'>Step1</span> : Sign Up or Login 🙎‍♂️</h3>
                <div className='p-2 font-poppins'>
@@ -42,7 +42,7 @@ const HowItWorks = () => {
                </div>
                </div>
              </CometCard>
-             <CometCard className='mx-2'>
+             <CometCard className='mx-4'>
               <div className='h-52 bg-white flex flex-col justify-center rounded-2xl p-2 md:p-4'>
                <h3 className='text-gray-600 font-bold font-poppins text-sm md:text-[16px]'><span className='text-primary font-bold'>Step2</span> : For Restaurants 🍽️</h3>
                <p className='m-2 font-poppins text-gray-500 text-[13px] md:text-[15px]'>Restaurants can donate their surplus food directly from their <span className='text-primary font-bold'>dashboard </span>
@@ -50,7 +50,7 @@ const HowItWorks = () => {
                </p>
                </div>
              </CometCard>
-             <CometCard className='mx-2'>
+             <CometCard className='mx-4'>
               <div className='h-52 bg-white flex flex-col justify-center rounded-2xl p-2 md:p-4'>
                <h3 className='text-gray-600 font-bold font-poppins text-sm md:text-[16px]'><span className='text-primary font-bold'>Step3</span> : For NGO 💚</h3>
                <p className='m-2 font-poppins text-gray-500 text-[13px] md:text-[15px]'>NGO's can browse a list of donated food items.<br/>Click <span className='text-primary font-bold'>"More"</span>
@@ -58,7 +58,7 @@ const HowItWorks = () => {
                </p>
                </div>
              </CometCard>
-             <CometCard className='mx-2'>
+             <CometCard className='mx-4'>
               <div className='h-52 bg-white flex flex-col justify-center rounded-2xl p-2 md:p-4'>
                <h3 className='text-gray-600 font-bold font-poppins text-sm md:text-[16px]'><span className='text-primary font-bold'>Step4</span> : Handover 🤝</h3>
                <p className='m-2 font-poppins text-gray-500 text-[13px] md:text-[15px]'>The restaurant scans your QR code to verify the food item using a <span className='text-primary font-bold'>unique secret key </span> 
