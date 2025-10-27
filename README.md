@@ -1,8 +1,8 @@
-🥗 Kindmeal
+##🥗 Kindmeal
 
 Kindmeal is a platform designed to connect NGOs and restaurants, enabling restaurants to donate their surplus food to NGOs who distribute it to people in need. This helps reduce food waste while supporting communities by providing free meals to underprivileged individuals.
 
-⚙️ Tech Stack
+##⚙️ Tech Stack
 
 Next.js – Frontend framework
 
