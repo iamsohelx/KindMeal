@@ -1,23 +1,20 @@
-##🥗 Kindmeal
+# 🥗 Kindmeal
 
 Kindmeal is a platform designed to connect NGOs and restaurants, enabling restaurants to donate their surplus food to NGOs who distribute it to people in need. This helps reduce food waste while supporting communities by providing free meals to underprivileged individuals.
 
-##⚙️ Tech Stack
+### ⚙️ Tech Stack
 
-Next.js – Frontend framework
+- Next.js – Frontend framework
+- MongoDB – Database
+- Tailwind CSS – Styling
+- Shadcn UI – UI components
+- Aceternity – (Used for animation/UI effects)
 
-MongoDB – Database
+### 🚀 Installation & Setup
 
-Tailwind CSS – Styling
+Follow these steps to run **Kindmeal** locally:
 
-Shadcn UI – UI components
-
-Aceternity – (Used for animation/UI effects)
-
-🚀 Installation & Setup
-
-Follow these steps to run Kindmeal locally:
-
+```bash
 # 1. Clone the repository
 git clone https://github.com/iamsohelx/kindmeal.git
 
@@ -30,27 +27,24 @@ npm install
 # 4. Create a .env.local file in the root directory
 # and add your environment variables (e.g. MongoDB URI)
 MONGODB_URI=your_mongodb_connection_string
+CLOUDINARY_CLOUD_NAME= 
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+API_ENVIRONMENT_VARIABLE=CLOUDINARY_URL=
 
 # 5. Run the development server
 npm run dev
 
 # 6. Open your browser and visit
 http://localhost:3000
+```
+### 🧩 Features
 
-🧩 Features
+* 🔐 User Authentication (for NGOs & Restaurants)
+* 🍱 Food Donation Form
+* 🏢 NGO Dashboard
+* 🍽️ Restaurant Dashboard
+* 🧾 QR Code for Donation Verification
+* 📋 Food Listing & Management
 
-🔐 User Authentication (for NGOs & Restaurants)
-
-🍱 Food Donation Form
-
-🏢 NGO Dashboard
-
-🍽️ Restaurant Dashboard
-
-🧾 QR Code for Donation Verification
-
-📋 Food Listing & Management
-
-👨‍💻 Author
-
-Developed with ❤️ by Sohel Sheikh
+### Developed with ❤️ by Sohel Sheikh
