@@ -52,11 +52,11 @@ const fetchFoodData = async ()=>{
       
      <Card key={index} className="py-0 mx-7 h-[450px] md:h-60 md:mx-20 my-5 bg-white rounded-2xl shadow-lg overflow-hidden flex items-center md:justify-center flex-col md:flex-row">
       {/* Image Section */}
-      <div className="sm:h-[200px] sm:w-full md:h-full md:w-1/2">
+      <div className="h-[200px] w-full md:h-full md:w-1/2">
         <img
           src={food.imgurl}
           alt="Spaghetti"
-          className="w-full h-full rounded-sm object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
       {/* Content Section */}
